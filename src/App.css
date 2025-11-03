@@ -1,0 +1,623 @@
+/* parkrun colour palette */
+:root {
+  --parkrun-aubergine: #4c1a57;
+  --parkrun-apricot: #f7a541;
+  --parkrun-white: #ffffff;
+  --parkrun-black: #000000;
+  --parkrun-grey: #666666;
+  --parkrun-light-grey: #f5f5f5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--parkrun-light-grey);
+  color: var(--parkrun-black);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.app-header {
+  background-color: var(--parkrun-aubergine);
+  color: var(--parkrun-white);
+  padding: 1rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.app-header h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.app-header p {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.personal-barcode-toggle {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--parkrun-white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.personal-barcode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.personal-barcode-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.personal-barcode-content {
+  background-color: var(--parkrun-white);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.personal-barcode-content h2 {
+  color: var(--parkrun-aubergine);
+  margin-bottom: 0.5rem;
+}
+
+.personal-barcode-content > p {
+  color: var(--parkrun-grey);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.personal-barcode-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.personal-barcode-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.personal-barcode-form input {
+  padding: 0.75rem;
+  border: 2px solid var(--parkrun-grey);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.personal-barcode-form input:focus {
+  outline: none;
+  border-color: var(--parkrun-aubergine);
+}
+
+.personal-barcode-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.personal-barcode-button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.personal-barcode-button-primary {
+  background-color: var(--parkrun-apricot);
+  color: var(--parkrun-white);
+}
+
+.personal-barcode-button-primary:hover {
+  background-color: #e6942d;
+}
+
+.personal-barcode-button-secondary {
+  background-color: var(--parkrun-grey);
+  color: var(--parkrun-white);
+}
+
+.personal-barcode-button-secondary:hover {
+  background-color: #555;
+}
+
+.personal-barcode-card {
+  background-color: var(--parkrun-white);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.personal-barcode-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--parkrun-aubergine);
+}
+
+.personal-barcode-card-title {
+  color: var(--parkrun-aubergine);
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.personal-barcode-card-close {
+  background-color: transparent;
+  border: 1px solid var(--parkrun-aubergine);
+  color: var(--parkrun-aubergine);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.personal-barcode-card-close:hover {
+  background-color: var(--parkrun-aubergine);
+  color: var(--parkrun-white);
+}
+
+.personal-barcode-card-canvas {
+  background-color: var(--parkrun-white);
+  border: 2px solid var(--parkrun-grey);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.personal-barcode-canvas-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--parkrun-aubergine);
+  text-align: center;
+}
+
+.personal-barcode-canvas-barcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.personal-barcode-canvas-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.personal-barcode-canvas-line {
+  text-align: center;
+  width: 100%;
+}
+
+.personal-barcode-canvas-value {
+  font-size: 1.1rem;
+  color: var(--parkrun-black);
+  word-break: break-word;
+  display: block;
+}
+
+.personal-barcode-canvas-barcode-id {
+  font-weight: bold;
+}
+
+.personal-barcode-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.about-box {
+  width: 100%;
+  max-width: 500px;
+}
+
+.about-toggle {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--parkrun-white);
+  border: 2px solid var(--parkrun-aubergine);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--parkrun-aubergine);
+}
+
+.about-toggle:hover {
+  background-color: var(--parkrun-light-grey);
+  border-color: var(--parkrun-apricot);
+}
+
+.about-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 26, 87, 0.1);
+}
+
+.about-toggle-text {
+  flex: 1;
+  text-align: left;
+}
+
+.about-toggle-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.about-content {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background-color: var(--parkrun-white);
+  border: 2px solid var(--parkrun-aubergine);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.about-content h2 {
+  color: var(--parkrun-aubergine);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.about-content h3 {
+  color: var(--parkrun-aubergine);
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: var(--parkrun-black);
+}
+
+.about-content ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.about-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  color: var(--parkrun-black);
+}
+
+.about-content code {
+  background-color: var(--parkrun-light-grey);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+  color: var(--parkrun-aubergine);
+}
+
+.about-content .nav-indicator {
+  color: var(--parkrun-aubergine);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.about-note {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--parkrun-light-grey);
+  font-size: 0.9rem;
+  color: var(--parkrun-grey);
+}
+
+.token-display {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: var(--parkrun-white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.barcode-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.barcode-toggle-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.barcode-toggle {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--parkrun-aubergine);
+  background-color: var(--parkrun-white);
+  color: var(--parkrun-aubergine);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.barcode-toggle:hover {
+  background-color: var(--parkrun-light-grey);
+}
+
+.barcode-toggle.active {
+  background-color: var(--parkrun-aubergine);
+  color: var(--parkrun-white);
+}
+
+.barcode-container-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.barcode-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--parkrun-white);
+  border-radius: 8px;
+  min-height: 150px;
+}
+
+.barcode-nav-button {
+  background-color: transparent;
+  border: none;
+  color: var(--parkrun-aubergine);
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  user-select: none;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  min-height: 3rem;
+}
+
+.barcode-nav-button:hover:not(:disabled) {
+  color: var(--parkrun-apricot);
+  transform: scale(1.2);
+}
+
+.barcode-nav-button:active:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.barcode-nav-button:disabled {
+  color: var(--parkrun-grey);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.token-label {
+  width: 100%;
+  background-color: var(--parkrun-aubergine);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.token-label .token-prefix {
+  margin-right: 0;
+}
+
+.token-label .token-input {
+  margin-left: -0.3rem;
+}
+
+.token-prefix {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  color: var(--parkrun-apricot);
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.token-input {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.3rem;
+  color: var(--parkrun-apricot);
+  background-color: transparent;
+  border: 2px solid transparent;
+  outline: none;
+  text-align: center;
+  min-width: 9rem;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  padding-left: 0;
+  padding-right: 0.5rem;
+  caret-color: var(--parkrun-apricot);
+  box-sizing: content-box;
+  line-height: 1;
+}
+
+.token-input:focus {
+  border-color: var(--parkrun-apricot);
+  border-radius: 4px;
+  background-color: rgba(247, 165, 65, 0.1);
+}
+
+.token-input::selection {
+  background-color: var(--parkrun-apricot);
+  color: var(--parkrun-aubergine);
+}
+
+.swipe-hint {
+  font-size: 0.875rem;
+  color: var(--parkrun-grey);
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .token-prefix,
+  .token-input {
+    font-size: 2rem;
+  }
+
+  .token-input {
+    letter-spacing: 0.2rem;
+    min-width: 7.5rem;
+    padding: 0 0.4rem;
+    margin-left: -0.2rem;
+  }
+
+  .barcode-container {
+    padding: 1rem;
+  }
+
+  .barcode-nav-button {
+    font-size: 2.5rem;
+    padding: 0.5rem;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+
+  .barcode-container-wrapper {
+    gap: 0.5rem;
+  }
+
+  .about-content {
+    padding: 1rem;
+  }
+
+  .about-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .about-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .personal-barcode-card {
+    padding: 1.5rem;
+  }
+
+  .personal-barcode-card-title {
+    font-size: 1.5rem;
+  }
+
+  .personal-barcode-card-barcode {
+    padding: 1rem;
+  }
+
+  .personal-barcode-toggle {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a1a1a;
+    color: var(--parkrun-white);
+  }
+
+  .token-display {
+    background-color: #2a2a2a;
+  }
+}
