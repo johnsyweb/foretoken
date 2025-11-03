@@ -100,6 +100,31 @@ function App() {
           onPositionChange={handlePositionChange}
         />
       </main>
+      <footer className="app-footer">
+        <p>
+          <strong>Foretoken</strong> by{" "}
+          <a
+            href="https://johnsy.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Pete Johns
+          </a>{" "}
+          (
+          <a
+            href="https://github.com/johnsyweb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @johnsyweb
+          </a>
+          )
+        </p>
+        <p>
+          Licensed under MIT. Not officially associated with parkrun. Written by
+          parkrun volunteers for parkrun volunteers.
+        </p>
+      </footer>
     </div>
   );
 }

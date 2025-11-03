@@ -9,8 +9,9 @@ const rootDir = resolve(__dirname, "..");
 
 async function generateScreenshot() {
   const browser = await chromium.launch();
+  // iPhone 14 Pro dimensions (390 x 844, but using standard iPhone screenshot size)
   const page = await browser.newPage({
-    viewport: { width: 800, height: 1200 },
+    viewport: { width: 390, height: 844 },
   });
 
   const port = process.env.PORT || 3000;

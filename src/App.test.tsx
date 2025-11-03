@@ -5,7 +5,9 @@ import App from "./App";
 describe("App", () => {
   it("renders the app header", () => {
     render(<App />);
-    expect(screen.getByText("Foretoken")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Foretoken" })
+    ).toBeInTheDocument();
     expect(
       screen.getByText("parkrun finish token generator")
     ).toBeInTheDocument();
