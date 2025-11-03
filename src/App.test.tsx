@@ -17,7 +17,7 @@ describe("App", () => {
     const input = screen.getByLabelText(
       "Edit finish token number"
     ) as HTMLInputElement;
-    expect(input.value).toBe("1");
+    expect(input.value).toBe("0001");
   });
 
   it("updates position when editing the token number", async () => {
@@ -31,7 +31,7 @@ describe("App", () => {
     await user.type(input, "308");
     await user.keyboard("{Enter}");
 
-    expect(input.value).toBe("308");
+    expect(input.value).toBe("0308");
   });
 
   it("only accepts numeric input", async () => {

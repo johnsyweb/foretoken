@@ -76,7 +76,7 @@ This project uses:
 
 ### Generating Assets
 
-Icons and the Open Graph image are generated automatically during the build process (`prebuild` script), but you can also generate them manually:
+Icons are generated automatically during the build process (`prebuild` script). The OG image and README screenshot are generated automatically during CI/CD deployment, but can also be generated manually:
 
 ```bash
 # Generate icons from icon.svg (no server needed)
@@ -90,6 +90,8 @@ pnpm dev
 pnpm generate:og-image      # For Open Graph preview image
 pnpm generate:screenshot    # For README screenshot
 ```
+
+**Note:** The screenshot (`screenshot.png`) is automatically generated during the CI/CD build process and committed to the repository.
 
 ### Code Quality
 

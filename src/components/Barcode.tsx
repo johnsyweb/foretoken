@@ -23,7 +23,7 @@ export function BarcodeDisplay({
   const [isQRCode, setIsQRCode] = useState(false);
   const [editingValue, setEditingValue] = useState<string | null>(null);
   const token = positionToToken(position);
-  const numericPart = String(position);
+  const numericPart = String(position).padStart(4, "0");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

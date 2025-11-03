@@ -2,7 +2,7 @@ export function positionToToken(position: number): string {
   if (position < 1 || !Number.isInteger(position)) {
     throw new Error("Position must be a positive integer");
   }
-  return `P${position}`;
+  return `P${String(position).padStart(4, "0")}`;
 }
 
 export function tokenToPosition(token: string): number {

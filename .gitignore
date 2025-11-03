@@ -31,6 +31,6 @@ coverage
 .env.local
 .env.*.local
 
-# Generated screenshots (uncomment if you don't want to commit them)
+# Generated screenshots (committed to repo)
 # screenshot.png
 

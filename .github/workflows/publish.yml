@@ -8,7 +8,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -41,13 +41,25 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
       
-      - name: Generate OG image
+      - name: Generate OG image and screenshot
         run: |
           pnpm dev > /tmp/vite.log 2>&1 &
           VITE_PID=$!
           sleep 10
           pnpm run generate:og-image || echo "OG image generation failed, continuing anyway"
+          pnpm run generate:screenshot || echo "Screenshot generation failed, continuing anyway"
           kill $VITE_PID 2>/dev/null || pkill -f vite || true
+      
+      - name: Commit screenshot if generated
+        run: |
+          if [ -f screenshot.png ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add screenshot.png
+            git diff --staged --quiet || git commit -m "chore: update screenshot" || echo "No screenshot changes to commit"
+            git push || echo "Push skipped (may already be up to date)"
+          fi
+        continue-on-error: true
       
       - name: Build website
         run: pnpm run build

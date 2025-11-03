@@ -5,23 +5,23 @@ import {
 } from "./tokenGenerator";
 
 describe("positionToToken", () => {
-  it("converts position 1 to P1", () => {
-    expect(positionToToken(1)).toBe("P1");
+  it("converts position 1 to P0001", () => {
+    expect(positionToToken(1)).toBe("P0001");
   });
 
-  it("converts position 308 to P308", () => {
-    expect(positionToToken(308)).toBe("P308");
+  it("converts position 308 to P0308", () => {
+    expect(positionToToken(308)).toBe("P0308");
   });
 
   it("converts position 9999 to P9999", () => {
     expect(positionToToken(9999)).toBe("P9999");
   });
 
-  it("converts single digit positions without padding", () => {
-    expect(positionToToken(5)).toBe("P5");
+  it("pads single digit positions with zeros", () => {
+    expect(positionToToken(5)).toBe("P0005");
   });
 
-  it("converts large positions", () => {
+  it("pads positions up to 4 digits, then no padding", () => {
     expect(positionToToken(12345)).toBe("P12345");
     expect(positionToToken(99999)).toBe("P99999");
     expect(positionToToken(100000)).toBe("P100000");
@@ -38,12 +38,12 @@ describe("positionToToken", () => {
 });
 
 describe("tokenToPosition", () => {
-  it("converts P1 to position 1", () => {
-    expect(tokenToPosition("P1")).toBe(1);
+  it("converts P0001 to position 1", () => {
+    expect(tokenToPosition("P0001")).toBe(1);
   });
 
-  it("converts P308 to position 308", () => {
-    expect(tokenToPosition("P308")).toBe(308);
+  it("converts P0308 to position 308", () => {
+    expect(tokenToPosition("P0308")).toBe(308);
   });
 
   it("converts P9999 to position 9999", () => {

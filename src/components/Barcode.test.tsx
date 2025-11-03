@@ -32,7 +32,7 @@ describe("BarcodeDisplay", () => {
     const input = screen.getByLabelText(
       "Edit finish token number"
     ) as HTMLInputElement;
-    expect(input.value).toBe("1");
+    expect(input.value).toBe("0001");
   });
 
   it("displays the numeric part for position 308", () => {
@@ -42,7 +42,7 @@ describe("BarcodeDisplay", () => {
     const input = screen.getByLabelText(
       "Edit finish token number"
     ) as HTMLInputElement;
-    expect(input.value).toBe("308");
+    expect(input.value).toBe("0308");
   });
 
   it("has toggle buttons for barcode types", () => {
