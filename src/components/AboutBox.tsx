@@ -29,9 +29,13 @@ export function AboutBox() {
           </p>
           <p>
             Foretoken solves this by generating finish token barcodes on your
-            smartphone. At a popular event that has run out of finish tokens, a
-            Finish Token Support volunteer can use this app to display the
-            correct generated finish tokens alongside a Barcode Scanner.
+            smartphone. At a popular event that has run out of finish tokens,
+            instead of handing out physical tokens at the end of the finish
+            funnel, volunteers can write each finisher's position number on the
+            back of their hand with a pen. Then, when they get to the barcode
+            scanner, a Finish Token Support volunteer can use this app to
+            display the correct generated finish tokens alongside a Barcode
+            Scanner.
           </p>
           <h3>How to use</h3>
           <ul>
