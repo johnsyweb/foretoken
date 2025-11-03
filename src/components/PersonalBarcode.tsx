@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Barcode from "react-barcode";
 import html2canvas from "html2canvas";
 import {
@@ -7,22 +7,29 @@ import {
   clearWalletData,
 } from "../utils/wallet";
 
+function getInitialWalletData() {
+  const data = loadWalletData();
+  return {
+    parkrunBarcode: data.parkrunBarcode || "",
+    parkrunnerName: data.parkrunnerName || "",
+    iceName: data.iceName || "",
+    icePhone: data.icePhone || "",
+  };
+}
+
 export function PersonalBarcode() {
+  const initialData = getInitialWalletData();
   const [isOpen, setIsOpen] = useState(false);
   const [isViewing, setIsViewing] = useState(false);
-  const [parkrunBarcode, setParkrunBarcode] = useState("");
-  const [parkrunnerName, setParkrunnerName] = useState("");
-  const [iceName, setIceName] = useState("");
-  const [icePhone, setIcePhone] = useState("");
+  const [parkrunBarcode, setParkrunBarcode] = useState(
+    initialData.parkrunBarcode
+  );
+  const [parkrunnerName, setParkrunnerName] = useState(
+    initialData.parkrunnerName
+  );
+  const [iceName, setIceName] = useState(initialData.iceName);
+  const [icePhone, setIcePhone] = useState(initialData.icePhone);
   const walletCardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const data = loadWalletData();
-    setParkrunBarcode(data.parkrunBarcode || "");
-    setParkrunnerName(data.parkrunnerName || "");
-    setIceName(data.iceName || "");
-    setIcePhone(data.icePhone || "");
-  }, []);
 
   const handleSave = () => {
     saveWalletData({
