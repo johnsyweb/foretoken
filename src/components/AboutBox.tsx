@@ -43,7 +43,7 @@ export function AboutBox() {
               <strong>Navigate:</strong> Use the{" "}
               <span className="nav-indicator">&lt;</span> and{" "}
               <span className="nav-indicator">&gt;</span> buttons, swipe
-              left/right, or use arrow keys
+              left/right, or use arrow keys (← decreases, → increases)
             </li>
             <li>
               <strong>Enter position:</strong> Tap the number below the barcode
@@ -52,6 +52,15 @@ export function AboutBox() {
             <li>
               <strong>Barcode types:</strong> Toggle between 1D barcode and QR
               code formats
+            </li>
+            <li>
+              <strong>Print tokens:</strong> Use the 🖨️ button to print a sheet
+              of replacement finish tokens (A4 or Letter format, automatically
+              detected based on your locale)
+            </li>
+            <li>
+              <strong>Personal barcode:</strong> Store your parkrun barcode and
+              ICE details for easy sharing as a credit-card sized image
             </li>
             <li>
               <strong>Share:</strong> Add <code>?position=308</code> to the URL
