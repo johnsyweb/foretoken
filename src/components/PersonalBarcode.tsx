@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Barcode from "react-barcode";
 import html2canvas from "html2canvas";
 import {
@@ -30,29 +30,34 @@ export function PersonalBarcode() {
   const [iceName, setIceName] = useState(initialData.iceName);
   const [icePhone, setIcePhone] = useState(initialData.icePhone);
   const walletCardRef = useRef<HTMLDivElement>(null);
+  const shareButtonRef = useRef<HTMLButtonElement>(null);
+  const editButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
+  const clearButtonRef = useRef<HTMLButtonElement>(null);
+  const editCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const firstInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSave = () => {
-    saveWalletData({
-      parkrunBarcode: parkrunBarcode.trim() || undefined,
-      parkrunnerName: parkrunnerName.trim() || undefined,
-      iceName: iceName.trim() || undefined,
-      icePhone: icePhone.trim() || undefined,
-    });
-    setIsOpen(false);
-    setIsViewing(true);
-  };
+  // Calculate hasWalletData for keyboard navigation
+  const walletData = loadWalletData();
+  const hasWalletData =
+    walletData.parkrunBarcode ||
+    walletData.parkrunnerName ||
+    walletData.iceName ||
+    walletData.icePhone;
 
-  const handleClear = () => {
-    clearWalletData();
-    setParkrunBarcode("");
-    setParkrunnerName("");
-    setIceName("");
-    setIcePhone("");
-    setIsOpen(false);
-    setIsViewing(false);
-  };
+  const downloadImage = useCallback((blob: Blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "parkrun-barcode.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, []);
 
-  const handleAddToWallet = async () => {
+  const handleAddToWallet = useCallback(async () => {
     const data = loadWalletData();
     if (!data.parkrunBarcode) {
       alert("Please save your parkrun barcode first");
@@ -94,22 +99,95 @@ export function PersonalBarcode() {
       console.error("Failed to generate barcode card:", error);
       alert("Failed to generate barcode card. Please try again.");
     }
+  }, [downloadImage]);
+
+  // Keyboard navigation for viewing modal
+  useEffect(() => {
+    if (!isViewing || !hasWalletData) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsViewing(false);
+      } else if (e.key === "Tab") {
+        // Allow normal tab navigation
+        return;
+      } else if (e.key === "Enter" || e.key === " ") {
+        // Handle Enter/Space on focused button
+        const activeElement = document.activeElement;
+        if (activeElement === shareButtonRef.current) {
+          e.preventDefault();
+          handleAddToWallet();
+        } else if (activeElement === editButtonRef.current) {
+          e.preventDefault();
+          setIsViewing(false);
+          setIsOpen(true);
+        } else if (activeElement === closeButtonRef.current) {
+          e.preventDefault();
+          setIsViewing(false);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    // Focus first button when modal opens
+    setTimeout(() => {
+      shareButtonRef.current?.focus();
+    }, 100);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isViewing, hasWalletData, handleAddToWallet]);
+
+  // Keyboard navigation for edit modal
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setIsOpen(false);
+        if (hasWalletData) {
+          setIsViewing(true);
+        }
+      }
+      // Form submission on Enter is handled by the form's onSubmit
+      // Tab navigation works naturally with form elements
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    // Focus first input when modal opens
+    setTimeout(() => {
+      firstInputRef.current?.focus();
+    }, 100);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, hasWalletData]);
+
+  const handleSave = () => {
+    saveWalletData({
+      parkrunBarcode: parkrunBarcode.trim() || undefined,
+      parkrunnerName: parkrunnerName.trim() || undefined,
+      iceName: iceName.trim() || undefined,
+      icePhone: icePhone.trim() || undefined,
+    });
+    setIsOpen(false);
+    setIsViewing(true);
   };
 
-  const downloadImage = (blob: Blob) => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "parkrun-barcode.png";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const handleClear = () => {
+    clearWalletData();
+    setParkrunBarcode("");
+    setParkrunnerName("");
+    setIceName("");
+    setIcePhone("");
+    setIsOpen(false);
+    setIsViewing(false);
   };
 
-  const data = loadWalletData();
-  const hasWalletData =
-    data.parkrunBarcode || data.parkrunnerName || data.iceName || data.icePhone;
+  const data = walletData;
 
   if (!isOpen && !isViewing) {
     return (
@@ -176,26 +254,32 @@ export function PersonalBarcode() {
 
           <div className="personal-barcode-card-actions">
             <button
+              ref={shareButtonRef}
               className="personal-barcode-button personal-barcode-button-primary"
               onClick={handleAddToWallet}
               type="button"
+              aria-label="Share barcode"
             >
               Share
             </button>
             <button
+              ref={editButtonRef}
               className="personal-barcode-button personal-barcode-button-secondary"
               onClick={() => {
                 setIsViewing(false);
                 setIsOpen(true);
               }}
               type="button"
+              aria-label="Edit barcode details"
             >
               Edit
             </button>
             <button
+              ref={closeButtonRef}
               className="personal-barcode-button personal-barcode-button-secondary"
               onClick={() => setIsViewing(false)}
               type="button"
+              aria-label="Close"
             >
               Close
             </button>
@@ -221,6 +305,7 @@ export function PersonalBarcode() {
           <label htmlFor="parkrun-barcode">
             parkrun Barcode Number
             <input
+              ref={firstInputRef}
               id="parkrun-barcode"
               type="text"
               value={parkrunBarcode}
@@ -268,19 +353,24 @@ export function PersonalBarcode() {
 
           <div className="personal-barcode-actions">
             <button
+              ref={saveButtonRef}
               className="personal-barcode-button personal-barcode-button-primary"
               type="submit"
+              aria-label="Save barcode details"
             >
               Save
             </button>
             <button
+              ref={clearButtonRef}
               className="personal-barcode-button personal-barcode-button-secondary"
               onClick={handleClear}
               type="button"
+              aria-label="Clear all fields"
             >
               Clear
             </button>
             <button
+              ref={editCloseButtonRef}
               className="personal-barcode-button personal-barcode-button-secondary"
               onClick={() => {
                 setIsOpen(false);
@@ -289,6 +379,7 @@ export function PersonalBarcode() {
                 }
               }}
               type="button"
+              aria-label="Close"
             >
               Close
             </button>
