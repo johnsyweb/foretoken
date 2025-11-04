@@ -188,38 +188,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.personal-barcode-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--parkrun-aubergine);
-}
-
-.personal-barcode-card-title {
-  color: var(--parkrun-aubergine);
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.personal-barcode-card-close {
-  background-color: transparent;
-  border: 1px solid var(--parkrun-aubergine);
-  color: var(--parkrun-aubergine);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.personal-barcode-card-close:hover {
-  background-color: var(--parkrun-aubergine);
-  color: var(--parkrun-white);
-}
-
 .personal-barcode-card-canvas {
   background-color: var(--parkrun-white);
   border: 2px solid var(--parkrun-grey);
@@ -652,10 +620,6 @@ body {
 
   .personal-barcode-card {
     padding: 1.5rem;
-  }
-
-  .personal-barcode-card-title {
-    font-size: 1.5rem;
   }
 
   .personal-barcode-card-barcode {
