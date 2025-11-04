@@ -137,7 +137,15 @@ function App() {
       />
       <footer className="app-footer">
         <p>
-          <strong>Foretoken</strong> by{" "}
+          <strong>Foretoken</strong> {" "}
+          
+          <a
+            href="https://github.com/johnsyweb/foretoken/blob/main/CHANGELOG.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            v{packageJson.version}
+          </a> by{" "}
           <a
             href="https://johnsy.com"
             target="_blank"
@@ -158,16 +166,6 @@ function App() {
         <p>
           Licensed under MIT. Not officially associated with parkrun. Written by
           parkrun volunteers for parkrun volunteers.
-        </p>
-        <p>
-          Version{" "}
-          <a
-            href="https://github.com/johnsyweb/foretoken/blob/main/CHANGELOG.md"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {packageJson.version}
-          </a>
         </p>
       </footer>
     </div>
