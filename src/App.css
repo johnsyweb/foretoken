@@ -847,9 +847,17 @@ body {
 
 @media print {
   /* Default to A4, user can change in print dialog */
+  /* Reduced margins to maximize usable space */
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 5mm 10mm; /* 5mm top/bottom, 10mm left/right */
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
   }
 
   /* Hide everything except print sheet content */
@@ -870,11 +878,13 @@ body {
     height: 100%;
     background: white;
     padding: 0;
+    margin: 0;
   }
 
   .print-sheet-modal-content {
     box-shadow: none;
     padding: 0;
+    margin: 0;
     max-width: none;
     max-height: none;
     overflow: visible;
@@ -888,6 +898,7 @@ body {
 
   .print-sheet-preview {
     padding: 0;
+    margin: 0;
     background: transparent;
     max-height: none;
     overflow: visible;
@@ -899,8 +910,10 @@ body {
     grid-auto-rows: 20mm;
     gap: 0;
     width: 160mm; /* 4 columns × 40mm */
+    margin: 0 auto;
+    padding: 0;
     page-break-inside: avoid;
-    justify-content: center;
+    break-inside: avoid;
   }
 
   .print-token {
