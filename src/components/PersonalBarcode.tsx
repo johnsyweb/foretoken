@@ -39,7 +39,7 @@ export function PersonalBarcode() {
       icePhone: icePhone.trim() || undefined,
     });
     setIsOpen(false);
-    setIsViewing(false);
+    setIsViewing(true);
   };
 
   const handleClear = () => {
@@ -128,21 +128,6 @@ export function PersonalBarcode() {
     return (
       <div className="personal-barcode-modal">
         <div className="personal-barcode-card">
-          <div className="personal-barcode-card-header">
-            <h2 className="personal-barcode-card-title">parkrun</h2>
-            <button
-              className="personal-barcode-card-close"
-              onClick={() => {
-                setIsViewing(false);
-                setIsOpen(true);
-              }}
-              type="button"
-              aria-label="Edit personal barcode"
-            >
-              Edit
-            </button>
-          </div>
-
           <div className="personal-barcode-card-canvas" ref={walletCardRef}>
             <div className="personal-barcode-canvas-title">parkrun</div>
 
