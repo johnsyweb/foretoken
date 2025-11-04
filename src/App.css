@@ -408,19 +408,7 @@ body {
   background-color: var(--parkrun-light-grey);
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  font-family:
-    "Atkinson Hyperlegible",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: "Atkinson Hyperlegible Mono", "Courier New", Courier, monospace;
   font-size: 0.9em;
   color: var(--parkrun-aubergine);
 }
@@ -570,19 +558,7 @@ body {
 .token-prefix {
   font-size: 2.5rem;
   font-weight: bold;
-  font-family:
-    "Atkinson Hyperlegible",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: "Atkinson Hyperlegible Mono", "Courier New", Courier, monospace;
   color: var(--parkrun-apricot);
   user-select: none;
   margin: 0;
@@ -593,19 +569,7 @@ body {
 .token-input {
   font-size: 2.5rem;
   font-weight: bold;
-  font-family:
-    "Atkinson Hyperlegible",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: "Atkinson Hyperlegible Mono", "Courier New", Courier, monospace;
   letter-spacing: 0.3rem;
   color: var(--parkrun-apricot);
   background-color: transparent;
