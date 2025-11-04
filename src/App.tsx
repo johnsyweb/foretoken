@@ -4,6 +4,7 @@ import { PersonalBarcode } from "./components/PersonalBarcode";
 import { AboutBox } from "./components/AboutBox";
 import { PrintSheet } from "./components/PrintSheet";
 import { isValidPosition } from "./utils/tokenGenerator";
+import packageJson from "../package.json";
 import "./App.css";
 
 const DEFAULT_POSITION = 1;
@@ -157,6 +158,16 @@ function App() {
         <p>
           Licensed under MIT. Not officially associated with parkrun. Written by
           parkrun volunteers for parkrun volunteers.
+        </p>
+        <p>
+          Version{" "}
+          <a
+            href="https://github.com/johnsyweb/foretoken/blob/main/CHANGELOG.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {packageJson.version}
+          </a>
         </p>
       </footer>
     </div>

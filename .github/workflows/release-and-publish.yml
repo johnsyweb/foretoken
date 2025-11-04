@@ -1,14 +1,16 @@
-name: Publish to GitHub Pages
+name: Release and Publish
 
 on:
   workflow_run:
     workflows: ['CI']
+    branches: [main]
     types:
       - completed
-    branches: [main]
 
 permissions:
   contents: write
+  issues: write
+  pull-requests: write
   pages: write
   id-token: write
 
@@ -17,30 +19,80 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v5
-      
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Get pnpm version from .tool-versions
+        id: pnpm-version
+        run: echo "version=$(grep -E '^pnpm ' .tool-versions | awk '{print $2}')" >> $GITHUB_OUTPUT
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
-      
+          version: ${{ steps.pnpm-version.outputs.version }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version-file: '.tool-versions'
           cache: 'pnpm'
-      
+
       - name: Install dependencies
         run: pnpm install
-      
+
+      - name: Release
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm release
+
+  publish:
+    name: Publish to GitHub Pages
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Get pnpm version from .tool-versions
+        id: pnpm-version
+        run: echo "version=$(grep -E '^pnpm ' .tool-versions | awk '{print $2}')" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ steps.pnpm-version.outputs.version }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.tool-versions'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
-      
+
       - name: Generate OG image and screenshot
         run: |
           pnpm dev > /tmp/vite.log 2>&1 &
@@ -49,7 +101,7 @@ jobs:
           pnpm run generate:og-image || echo "OG image generation failed, continuing anyway"
           pnpm run generate:screenshot || echo "Screenshot generation failed, continuing anyway"
           kill $VITE_PID 2>/dev/null || pkill -f vite || true
-      
+
       - name: Commit screenshot if generated
         run: |
           if [ -f screenshot.png ]; then
@@ -60,18 +112,18 @@ jobs:
             git push || echo "Push skipped (may already be up to date)"
           fi
         continue-on-error: true
-      
+
       - name: Build website
         run: pnpm run build
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: './dist'
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

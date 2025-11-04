@@ -9,19 +9,23 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v5
-      
+
+      - name: Get pnpm version from .tool-versions
+        id: pnpm-version
+        run: echo "version=$(grep -E '^pnpm ' .tool-versions | awk '{print $2}')" >> $GITHUB_OUTPUT
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
-      
+          version: ${{ steps.pnpm-version.outputs.version }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version-file: '.tool-versions'
           cache: 'pnpm'
       
       - name: Install dependencies

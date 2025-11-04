@@ -34,9 +34,12 @@ This webapp, optimised for phone usage, will convert a finish position number (s
 
 This project uses:
 
-- **Node.js** (v20 or later)
-- **pnpm** (v10 or later) - Package manager
+- **mise** (formerly rtx) - Runtime version manager (see `.tool-versions`)
+- **Node.js** (version specified in `.tool-versions`)
+- **pnpm** (version specified in `.tool-versions`) - Package manager
 - **Playwright** (for generating OG images and icons)
+
+Versions are managed via `.tool-versions` for mise. The CI/CD workflows automatically read versions from this file.
 
 ### Quick Start
 
@@ -75,6 +78,7 @@ This project uses:
 - `pnpm generate:icons` - Generate favicon and app icons from SVG
 - `pnpm generate:og-image` - Generate Open Graph preview image (requires dev server running)
 - `pnpm generate:screenshot` - Generate README screenshot (requires dev server running)
+- `pnpm release` - Run semantic-release (typically run automatically by CI/CD)
 
 ### Generating Assets
 
@@ -142,10 +146,15 @@ This project uses GitHub Actions for continuous integration and deployment:
   - Type checking with TypeScript
   - Test suite with Jest
 
-- **Publish Workflow**: Deploys to GitHub Pages on main branch
-  - Runs after CI succeeds
-  - Builds production website
-  - Automatically deploys to GitHub Pages at `/foretoken/`
+- **Release and Publish Workflow**: Runs after CI succeeds on main branch
+  - **Release job**: Automatically creates releases using semantic-release
+    - Analyzes commits for version bumps
+    - Generates changelog
+    - Creates git tags
+    - Updates version in package.json
+  - **Publish job**: Deploys to GitHub Pages
+    - Builds production website
+    - Automatically deploys to GitHub Pages at `/foretoken/`
 
 - **Dependabot**: Keeps dependencies up to date
   - Weekly updates for npm packages and GitHub Actions
@@ -170,6 +179,22 @@ Example: `https://johnsy.com/foretoken/?position=42`
   - 2D: `qrcode.react` (QR Code)
 - **Icons/OG Images**: Generated using Playwright
 - **Color Palette**: parkrun aubergine (#4A2142) and apricot (#F4A460)
+
+## Versioning
+
+This project follows [Semantic Versioning](https://semver.org/) (semver) and uses [semantic-release](https://github.com/semantic-release/semantic-release) to automatically determine version numbers and generate changelogs from commit messages. The current version is displayed in the footer and links to the [CHANGELOG.md](https://github.com/johnsyweb/foretoken/blob/main/CHANGELOG.md) on GitHub.
+
+### Releasing
+
+Releases are handled automatically by semantic-release when commits are pushed to the `main` branch. The tool:
+
+- Analyzes commit messages (following [Conventional Commits](https://www.conventionalcommits.org/))
+- Determines the appropriate version bump (major, minor, or patch)
+- Generates the changelog automatically
+- Creates a git tag
+- Updates `package.json` with the new version
+
+To create a release, simply ensure your commits follow the conventional commit format (e.g., `feat:`, `fix:`, `docs:`) and push to `main`. The release process runs automatically via CI/CD.
 
 ## License
 
