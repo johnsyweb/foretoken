@@ -56,7 +56,8 @@ export function AboutBox() {
             <li>
               <strong>Print tokens:</strong> Use the 🖨️ button to print a sheet
               of replacement finish tokens (A4 or Letter format, automatically
-              detected based on your locale)
+              detected based on your locale). This feature is ideal for
+              preparing tokens in advance when large attendance is anticipated
             </li>
             <li>
               <strong>Personal barcode:</strong> Store your parkrun barcode and

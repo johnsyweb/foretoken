@@ -19,7 +19,7 @@ This webapp, optimised for phone usage, will convert a finish position number (s
 - **Barcode Generation**: Generate parkrun finish tokens (P#### format) as scannable 1D barcodes or 2D QR codes
 - **Mobile Optimized**: Designed for smartphone use with swipe gestures for navigation
 - **Direct Entry**: Tap the token number to edit directly, or use URL parameters (e.g., `?position=42`)
-- **Print Sheets**: Print replacement finish tokens on A4 or Letter-sized paper (52 or 48 tokens per page respectively)
+- **Print Sheets**: Print replacement finish tokens on A4 or Letter-sized paper (52 or 48 tokens per page respectively) - ideal for preparing tokens in advance when large attendance is anticipated
 - **Personal Barcode**: Store your personal parkrun barcode and ICE (In Case of Emergency) details in credit-card sized format for easy sharing
 - **Keyboard Navigation**: Full keyboard accessibility including arrow keys (← decreases, → increases) and Enter key support
 - **parkrun Colors**: Uses the official parkrun aubergine and apricot color palette for familiarity
