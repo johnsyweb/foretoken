@@ -16,8 +16,18 @@
 
 body {
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    "Atkinson Hyperlegible",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--parkrun-light-grey);
@@ -398,7 +408,19 @@ body {
   background-color: var(--parkrun-light-grey);
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  font-family: "Courier New", monospace;
+  font-family:
+    "Atkinson Hyperlegible",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   font-size: 0.9em;
   color: var(--parkrun-aubergine);
 }
@@ -470,6 +492,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .barcode-container {
@@ -481,6 +505,14 @@ body {
   background-color: var(--parkrun-white);
   border-radius: 8px;
   min-height: 150px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.barcode-container svg {
+  max-width: 100%;
+  height: auto;
 }
 
 .barcode-nav-button {
@@ -538,7 +570,19 @@ body {
 .token-prefix {
   font-size: 2.5rem;
   font-weight: bold;
-  font-family: "Courier New", monospace;
+  font-family:
+    "Atkinson Hyperlegible",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   color: var(--parkrun-apricot);
   user-select: none;
   margin: 0;
@@ -549,7 +593,19 @@ body {
 .token-input {
   font-size: 2.5rem;
   font-weight: bold;
-  font-family: "Courier New", monospace;
+  font-family:
+    "Atkinson Hyperlegible",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   letter-spacing: 0.3rem;
   color: var(--parkrun-apricot);
   background-color: transparent;
@@ -599,6 +655,12 @@ body {
 
   .barcode-container {
     padding: 1rem;
+  }
+
+  .barcode-container svg {
+    max-width: min(calc(100vw - 7rem), 250px);
+    width: min(calc(100vw - 7rem), 250px);
+    height: auto;
   }
 
   .barcode-nav-button {
