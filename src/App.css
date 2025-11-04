@@ -642,6 +642,295 @@ body {
   }
 }
 
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.print-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--parkrun-white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+}
+
+.print-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.print-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.print-sheet-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.print-sheet-modal-content {
+  background-color: var(--parkrun-white);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.print-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.print-sheet-header h2 {
+  color: var(--parkrun-aubergine);
+  margin: 0;
+}
+
+.print-sheet-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--parkrun-grey);
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.print-sheet-close:hover {
+  color: var(--parkrun-aubergine);
+}
+
+.print-sheet-info {
+  margin-bottom: 1.5rem;
+  color: var(--parkrun-grey);
+}
+
+.print-sheet-info p {
+  margin: 0;
+}
+
+.print-sheet-preview {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--parkrun-light-grey);
+  border-radius: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.print-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.print-token {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border: 1px solid var(--parkrun-grey);
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--parkrun-white);
+  box-sizing: border-box;
+}
+
+.print-token-barcode {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.print-token-barcode svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.print-token-label {
+  font-family: "Atkinson Hyperlegible Mono", "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0.25rem;
+  color: var(--parkrun-black);
+}
+
+.print-sheet-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.print-sheet-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.print-sheet-button-primary {
+  background-color: var(--parkrun-apricot);
+  color: var(--parkrun-white);
+}
+
+.print-sheet-button-primary:hover {
+  background-color: #e6942d;
+}
+
+.print-sheet-button-secondary {
+  background-color: var(--parkrun-grey);
+  color: var(--parkrun-white);
+}
+
+.print-sheet-button-secondary:hover {
+  background-color: #555;
+}
+
+@media (max-width: 480px) {
+  .header-actions {
+    gap: 0.5rem;
+  }
+
+  .print-button {
+    font-size: 1rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .print-sheet-modal-content {
+    padding: 1.5rem;
+  }
+
+  .print-sheet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .print-token-label {
+    font-size: 0.65rem;
+  }
+}
+
+@media print {
+  /* Default to A4, user can change in print dialog */
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  /* Hide everything except print sheet content */
+  body * {
+    visibility: hidden;
+  }
+
+  .print-sheet-modal,
+  .print-sheet-modal * {
+    visibility: visible;
+  }
+
+  .print-sheet-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 0;
+  }
+
+  .print-sheet-modal-content {
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .print-sheet-header,
+  .print-sheet-info,
+  .print-sheet-actions {
+    display: none;
+  }
+
+  .print-sheet-preview {
+    padding: 0;
+    background: transparent;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .print-sheet-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 40mm);
+    grid-auto-rows: 20mm;
+    gap: 0;
+    width: 160mm; /* 4 columns × 40mm */
+    page-break-inside: avoid;
+    justify-content: center;
+  }
+
+  .print-token {
+    width: 40mm;
+    height: 20mm;
+    aspect-ratio: none;
+    border: 0.5pt solid black;
+    padding: 1mm;
+    margin: 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    background: white;
+    box-sizing: border-box;
+  }
+
+  .print-token-barcode {
+    height: 14mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .print-token-label {
+    font-size: 6pt;
+    margin-top: 0.5mm;
+    color: black;
+    text-align: center;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #1a1a1a;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { TokenDisplay } from "./components/TokenDisplay";
 import { PersonalBarcode } from "./components/PersonalBarcode";
 import { AboutBox } from "./components/AboutBox";
+import { PrintSheet } from "./components/PrintSheet";
 import { isValidPosition } from "./utils/tokenGenerator";
 import "./App.css";
 
@@ -21,12 +22,23 @@ function getInitialPosition(): number {
 
 function App() {
   const [position, setPosition] = useState(getInitialPosition);
+  const [isPrintSheetOpen, setIsPrintSheetOpen] = useState(false);
 
   const updateUrl = (newPosition: number) => {
     const url = new URL(window.location.href);
     url.searchParams.set("position", String(newPosition));
     window.history.replaceState({}, "", url.toString());
   };
+
+  useEffect(() => {
+    // Set page size data attribute based on locale for print styling
+    const locale = navigator.language || navigator.languages?.[0] || "";
+    if (locale.startsWith("en-US")) {
+      document.documentElement.setAttribute("data-page-size", "letter");
+    } else {
+      document.documentElement.setAttribute("data-page-size", "a4");
+    }
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -80,6 +92,12 @@ function App() {
     updateUrl(newPosition);
   };
 
+  const handlePrintComplete = (lastPrintedPosition: number) => {
+    const nextPosition = lastPrintedPosition + 1;
+    setPosition(nextPosition);
+    updateUrl(nextPosition);
+  };
+
   return (
     <div className="app">
       <header className="app-header">
@@ -88,7 +106,17 @@ function App() {
             <h1>Foretoken</h1>
             <p>parkrun finish token generator</p>
           </div>
-          <PersonalBarcode />
+          <div className="header-actions">
+            <button
+              className="print-button"
+              onClick={() => setIsPrintSheetOpen(true)}
+              type="button"
+              aria-label="Print finish tokens"
+            >
+              🖨️
+            </button>
+            <PersonalBarcode />
+          </div>
         </div>
       </header>
       <main className="app-main">
@@ -100,6 +128,12 @@ function App() {
           onPositionChange={handlePositionChange}
         />
       </main>
+      <PrintSheet
+        startPosition={position}
+        isOpen={isPrintSheetOpen}
+        onClose={() => setIsPrintSheetOpen(false)}
+        onPrintComplete={handlePrintComplete}
+      />
       <footer className="app-footer">
         <p>
           <strong>Foretoken</strong> by{" "}
