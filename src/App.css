@@ -850,7 +850,7 @@ body {
   /* Reduced margins to maximize usable space */
   @page {
     size: A4;
-    margin: 5mm 10mm; /* 5mm top/bottom, 10mm left/right */
+    margin: 4mm 10mm; /* 4mm top/bottom, 10mm left/right */
   }
 
   html,
@@ -930,15 +930,15 @@ body {
   }
 
   .print-token-barcode {
-    height: 14mm;
+    height: 12mm;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .print-token-label {
-    font-size: 6pt;
-    margin-top: 0.5mm;
+    font-size: 12pt;
+    margin-top: 0.25mm;
     color: black;
     text-align: center;
   }
