@@ -136,8 +136,8 @@ export function PersonalBarcode() {
                 <Barcode
                   value={data.parkrunBarcode}
                   format="CODE128"
-                  width={2}
-                  height={80}
+                  width={1.5}
+                  height={40}
                   displayValue={false}
                   background="#ffffff"
                   lineColor="#000000"
