@@ -32,18 +32,18 @@ function App() {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") {
         setPosition((prev) => {
-          const newPosition = prev + 1;
-          updateUrl(newPosition);
-          return newPosition;
-        });
-      } else if (e.key === "ArrowRight") {
-        setPosition((prev) => {
           if (prev > 1) {
             const newPosition = prev - 1;
             updateUrl(newPosition);
             return newPosition;
           }
           return prev;
+        });
+      } else if (e.key === "ArrowRight") {
+        setPosition((prev) => {
+          const newPosition = prev + 1;
+          updateUrl(newPosition);
+          return newPosition;
         });
       }
     };
