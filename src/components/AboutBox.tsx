@@ -1,7 +1,54 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import type React from "react";
+
+type BrowserType = "safari" | "chrome" | "other";
+
+function getBrowserType(): BrowserType {
+  if (typeof window === "undefined") return "other";
+
+  const ua = navigator.userAgent.toLowerCase();
+  const isIOS = /iphone|ipad|ipod/.test(ua);
+  const isSafari =
+    /safari/.test(ua) && !/chrome|chromium|edge/.test(ua) && isIOS;
+  const isChrome = /chrome/.test(ua) && !/edge|edg/.test(ua);
+  const isEdge = /edge|edg/.test(ua);
+
+  if (isSafari) return "safari";
+  if (isChrome || isEdge) return "chrome";
+  return "other";
+}
+
+const safariInstruction = (
+  <>
+    Tap the Share button <span aria-label="share icon">📤</span> at the bottom
+    of the screen, then scroll down and tap "Add to Home Screen". Give it a
+    name and tap "Add".
+  </>
+);
+
+const chromeInstruction = (
+  <>
+    Tap the menu button <span aria-label="menu icon">☰</span> (three dots) in
+    the top right, then tap "Add to Home screen" or "Install app". Confirm by
+    tapping "Add" or "Install".
+  </>
+);
+
+const homeScreenInstructions: Record<
+  BrowserType,
+  Array<{ label?: string; text: React.ReactNode }>
+> = {
+  safari: [{ text: safariInstruction }],
+  chrome: [{ text: chromeInstruction }],
+  other: [
+    { label: "iPhone/iPad (Safari):", text: safariInstruction },
+    { label: "Android (Chrome/Edge):", text: chromeInstruction },
+  ],
+};
 
 export function AboutBox() {
   const [isOpen, setIsOpen] = useState(false);
+  const browserType = useMemo(() => getBrowserType(), []);
 
   return (
     <div className="about-box">
@@ -68,6 +115,25 @@ export function AboutBox() {
               to share a specific position
             </li>
           </ul>
+          <h3>Add to Home Screen</h3>
+          <p>
+            For quick access during parkrun events, you can add Foretoken to
+            your device's home screen:
+          </p>
+          <ul>
+            {homeScreenInstructions[browserType].map((instruction, index) => (
+              <li key={index}>
+                {instruction.label && (
+                  <strong>{instruction.label} </strong>
+                )}
+                {instruction.text}
+              </li>
+            ))}
+          </ul>
+          <p>
+            Once added, Foretoken will appear on your home screen like a regular
+            app for easy access during events.
+          </p>
           <p className="about-note">
             <strong>Note:</strong> This app is not officially associated with
             parkrun. It is written by parkrun volunteers for parkrun volunteers.

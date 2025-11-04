@@ -18,6 +18,7 @@ This webapp, optimised for phone usage, will convert a finish position number (s
 
 - **Barcode Generation**: Generate parkrun finish tokens (P#### format) as scannable 1D barcodes or 2D QR codes
 - **Mobile Optimized**: Designed for smartphone use with swipe gestures for navigation
+- **Installable**: Can be added to home screen on iOS and Android for quick access during events
 - **Direct Entry**: Tap the token number to edit directly, or use URL parameters (e.g., `?position=42`)
 - **Print Sheets**: Print replacement finish tokens on A4 or Letter-sized paper (52 or 48 tokens per page respectively) - ideal for preparing tokens in advance when large attendance is anticipated
 - **Personal Barcode**: Store your personal parkrun barcode and ICE (In Case of Emergency) details in credit-card sized format for easy sharing
@@ -27,6 +28,15 @@ This webapp, optimised for phone usage, will convert a finish position number (s
 ## Live Demo
 
 **🌐 Live Site:** [johnsy.com/foretoken](https://johnsy.com/foretoken/)
+
+### Adding to Home Screen
+
+For quick access during parkrun events, volunteers can add Foretoken to their device's home screen:
+
+- **iPhone/iPad (Safari)**: Tap the Share button 📤 at the bottom, scroll down and tap "Add to Home Screen"
+- **Android (Chrome/Edge)**: Tap the menu ☰ (three dots), then tap "Add to Home screen" or "Install app"
+
+Once added, Foretoken will appear on the home screen like a regular app for easy access during events.
 
 ## Development
 
