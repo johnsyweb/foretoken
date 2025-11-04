@@ -211,7 +211,13 @@ export function PersonalBarcode() {
         <h2>My Personal Barcode</h2>
         <p>Store your parkrun barcode and ICE details for easy access</p>
 
-        <div className="personal-barcode-form">
+        <form
+          className="personal-barcode-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSave();
+          }}
+        >
           <label htmlFor="parkrun-barcode">
             parkrun Barcode Number
             <input
@@ -263,8 +269,7 @@ export function PersonalBarcode() {
           <div className="personal-barcode-actions">
             <button
               className="personal-barcode-button personal-barcode-button-primary"
-              onClick={handleSave}
-              type="button"
+              type="submit"
             >
               Save
             </button>
@@ -288,7 +293,7 @@ export function PersonalBarcode() {
               Close
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
