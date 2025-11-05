@@ -137,15 +137,15 @@ function App() {
       />
       <footer className="app-footer">
         <p>
-          <strong>Foretoken</strong> {" "}
-          
+          <strong>Foretoken</strong>{" "}
           <a
             href="https://github.com/johnsyweb/foretoken/blob/main/CHANGELOG.md"
             target="_blank"
             rel="noopener noreferrer"
           >
             v{packageJson.version}
-          </a> by{" "}
+          </a>{" "}
+          by{" "}
           <a
             href="https://johnsy.com"
             target="_blank"

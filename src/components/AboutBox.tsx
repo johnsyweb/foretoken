@@ -21,8 +21,8 @@ function getBrowserType(): BrowserType {
 const safariInstruction = (
   <>
     Tap the Share button <span aria-label="share icon">📤</span> at the bottom
-    of the screen, then scroll down and tap "Add to Home Screen". Give it a
-    name and tap "Add".
+    of the screen, then scroll down and tap "Add to Home Screen". Give it a name
+    and tap "Add".
   </>
 );
 
@@ -123,9 +123,7 @@ export function AboutBox() {
           <ul>
             {homeScreenInstructions[browserType].map((instruction, index) => (
               <li key={index}>
-                {instruction.label && (
-                  <strong>{instruction.label} </strong>
-                )}
+                {instruction.label && <strong>{instruction.label} </strong>}
                 {instruction.text}
               </li>
             ))}
