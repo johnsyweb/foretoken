@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Barcode from "react-barcode";
+import { QRCodeSVG } from "qrcode.react";
 import html2canvas from "html2canvas";
 import {
   saveWalletData,
@@ -21,6 +22,7 @@ export function PersonalBarcode() {
   const initialData = getInitialWalletData();
   const [isOpen, setIsOpen] = useState(false);
   const [isViewing, setIsViewing] = useState(false);
+  const [isQRCode, setIsQRCode] = useState(false);
   const [parkrunBarcode, setParkrunBarcode] = useState(
     initialData.parkrunBarcode
   );
@@ -80,10 +82,26 @@ export function PersonalBarcode() {
             type: "image/png",
           });
           if (navigator.canShare({ files: [file] })) {
+            const detailsLines: Array<string> = [];
+            if (data.parkrunnerName)
+              detailsLines.push(`${data.parkrunnerName}`);
+            if (data.parkrunBarcode)
+              detailsLines.push(`${data.parkrunBarcode}`);
+            if (data.iceName || data.icePhone) {
+              const iceParts: Array<string> = [];
+              if (data.iceName) iceParts.push(data.iceName);
+              if (data.icePhone) iceParts.push(`(${data.icePhone})`);
+              detailsLines.push(`ICE: ${iceParts.join(" ")}`);
+            }
+            detailsLines.push("");
+            detailsLines.push(
+              "Shared from Foretoken — https://johnsy.com/foretoken/"
+            );
+            const shareText = detailsLines.join("\n");
             navigator
               .share({
-                title: "parkrun Barcode",
-                text: "My parkrun barcode",
+                title: "Personal barcode",
+                text: shareText,
                 files: [file],
               })
               .catch(() => {
@@ -211,15 +229,19 @@ export function PersonalBarcode() {
 
             {data.parkrunBarcode && (
               <div className="personal-barcode-canvas-barcode">
-                <Barcode
-                  value={data.parkrunBarcode}
-                  format="CODE128"
-                  width={1.5}
-                  height={40}
-                  displayValue={false}
-                  background="#ffffff"
-                  lineColor="#000000"
-                />
+                {isQRCode ? (
+                  <QRCodeSVG value={data.parkrunBarcode} size={96} level="H" />
+                ) : (
+                  <Barcode
+                    value={data.parkrunBarcode}
+                    format="CODE128"
+                    width={1.5}
+                    height={40}
+                    displayValue={false}
+                    background="#ffffff"
+                    lineColor="#000000"
+                  />
+                )}
               </div>
             )}
 
@@ -253,6 +275,27 @@ export function PersonalBarcode() {
           </div>
 
           <div className="personal-barcode-card-actions">
+            <div
+              className="barcode-toggle-container"
+              style={{ marginRight: "auto" }}
+            >
+              <button
+                className={`barcode-toggle ${!isQRCode ? "active" : ""}`}
+                onClick={() => setIsQRCode(false)}
+                type="button"
+                aria-label="Switch to 1D barcode"
+              >
+                1D Barcode
+              </button>
+              <button
+                className={`barcode-toggle ${isQRCode ? "active" : ""}`}
+                onClick={() => setIsQRCode(true)}
+                type="button"
+                aria-label="Switch to QR code"
+              >
+                QR Code
+              </button>
+            </div>
             <button
               ref={shareButtonRef}
               className="personal-barcode-button personal-barcode-button-primary"
