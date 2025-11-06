@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Start dev server (for screenshots)
+        run: |
+          PORT=3000 pnpm dev &
+          echo $! > devserver.pid
+          sleep 2
+
+      - name: Generate OG image
+        env:
+          PORT: 3000
+        run: pnpm generate:og-image
+
+      - name: Generate README screenshot
+        env:
+          PORT: 3000
+        run: pnpm generate:screenshot
+
+      - name: Stop dev server
+        if: always()
+        run: |
+          if [ -f devserver.pid ]; then kill $(cat devserver.pid) || true; fi
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm release
+
+  # Trigger Pages deployment only after release completes
+  dispatch-pages:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Pages deployment
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          event-type: release-ready
+
