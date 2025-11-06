@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/johnsyweb/foretoken/compare/v1.0.0...v1.1.0) (2025-11-06)
+
+
+### Features
+
+* **personal-barcode:** add QR option and enrich shared details in message ([271adae](https://github.com/johnsyweb/foretoken/commit/271adae3b62bfb4788bb20b36d3697e46a1829e8))
+
 # 1.0.0 (2025-11-05)
 
 
