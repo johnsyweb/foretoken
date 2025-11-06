@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/johnsyweb/foretoken/compare/v1.1.0...v1.2.0) (2025-11-06)
+
+
+### Features
+
+* **app:** persist barcode type via code query param and sync across UI ([f741bbb](https://github.com/johnsyweb/foretoken/commit/f741bbbb26da5dfefaa03f90c0fb37e8e9cfc535))
+
 # [1.1.0](https://github.com/johnsyweb/foretoken/compare/v1.0.0...v1.1.0) (2025-11-06)
 
 
