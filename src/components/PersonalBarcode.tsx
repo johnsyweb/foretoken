@@ -18,11 +18,18 @@ function getInitialWalletData() {
   };
 }
 
-export function PersonalBarcode() {
+interface PersonalBarcodeProps {
+  isQRCode: boolean;
+  onCodeTypeChange: (isQRCode: boolean) => void;
+}
+
+export function PersonalBarcode({
+  isQRCode,
+  onCodeTypeChange,
+}: PersonalBarcodeProps) {
   const initialData = getInitialWalletData();
   const [isOpen, setIsOpen] = useState(false);
   const [isViewing, setIsViewing] = useState(false);
-  const [isQRCode, setIsQRCode] = useState(false);
   const [parkrunBarcode, setParkrunBarcode] = useState(
     initialData.parkrunBarcode
   );
@@ -281,7 +288,7 @@ export function PersonalBarcode() {
             >
               <button
                 className={`barcode-toggle ${!isQRCode ? "active" : ""}`}
-                onClick={() => setIsQRCode(false)}
+                onClick={() => onCodeTypeChange(false)}
                 type="button"
                 aria-label="Switch to 1D barcode"
               >
@@ -289,7 +296,7 @@ export function PersonalBarcode() {
               </button>
               <button
                 className={`barcode-toggle ${isQRCode ? "active" : ""}`}
-                onClick={() => setIsQRCode(true)}
+                onClick={() => onCodeTypeChange(true)}
                 type="button"
                 aria-label="Switch to QR code"
               >

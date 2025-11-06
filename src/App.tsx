@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { TokenDisplay } from "./components/TokenDisplay";
 import { PersonalBarcode } from "./components/PersonalBarcode";
 import { AboutBox } from "./components/AboutBox";
@@ -21,15 +21,26 @@ function getInitialPosition(): number {
   return DEFAULT_POSITION;
 }
 
+function getInitialIsQRCode(): boolean {
+  const params = new URLSearchParams(window.location.search);
+  const codeParam = params.get("code");
+  return codeParam === "qr";
+}
+
 function App() {
   const [position, setPosition] = useState(getInitialPosition);
+  const [isQRCode, setIsQRCode] = useState(getInitialIsQRCode);
   const [isPrintSheetOpen, setIsPrintSheetOpen] = useState(false);
 
-  const updateUrl = (newPosition: number) => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("position", String(newPosition));
-    window.history.replaceState({}, "", url.toString());
-  };
+  const updateUrl = useCallback(
+    (newPosition: number, nextIsQRCode: boolean = isQRCode) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("position", String(newPosition));
+      url.searchParams.set("code", nextIsQRCode ? "qr" : "1d");
+      window.history.replaceState({}, "", url.toString());
+    },
+    [isQRCode]
+  );
 
   useEffect(() => {
     // Set page size data attribute based on locale for print styling
@@ -63,7 +74,9 @@ function App() {
 
     const handlePopState = () => {
       const newPosition = getInitialPosition();
+      const nextIsQR = getInitialIsQRCode();
       setPosition(newPosition);
+      setIsQRCode(nextIsQR);
     };
 
     window.addEventListener("keydown", handleKeyPress);
@@ -72,7 +85,7 @@ function App() {
       window.removeEventListener("keydown", handleKeyPress);
       window.removeEventListener("popstate", handlePopState);
     };
-  }, []);
+  }, [updateUrl]);
 
   const handleNext = () => {
     const newPosition = position + 1;
@@ -91,6 +104,11 @@ function App() {
   const handlePositionChange = (newPosition: number) => {
     setPosition(newPosition);
     updateUrl(newPosition);
+  };
+
+  const handleCodeTypeChange = (nextIsQRCode: boolean) => {
+    setIsQRCode(nextIsQRCode);
+    updateUrl(position, nextIsQRCode);
   };
 
   const handlePrintComplete = (lastPrintedPosition: number) => {
@@ -116,7 +134,10 @@ function App() {
             >
               🖨️
             </button>
-            <PersonalBarcode />
+            <PersonalBarcode
+              isQRCode={isQRCode}
+              onCodeTypeChange={handleCodeTypeChange}
+            />
           </div>
         </div>
       </header>
@@ -127,6 +148,8 @@ function App() {
           onNext={handleNext}
           onPrevious={handlePrevious}
           onPositionChange={handlePositionChange}
+          isQRCode={isQRCode}
+          onCodeTypeChange={handleCodeTypeChange}
         />
       </main>
       <PrintSheet

@@ -6,6 +6,8 @@ interface TokenDisplayProps {
   onNext: () => void;
   onPrevious: () => void;
   onPositionChange: (position: number) => void;
+  isQRCode: boolean;
+  onCodeTypeChange: (isQRCode: boolean) => void;
 }
 
 export function TokenDisplay({
@@ -13,6 +15,8 @@ export function TokenDisplay({
   onNext,
   onPrevious,
   onPositionChange,
+  isQRCode,
+  onCodeTypeChange,
 }: TokenDisplayProps) {
   const swipeRef = useSwipe({
     onSwipeLeft: onNext,
@@ -28,6 +32,8 @@ export function TokenDisplay({
         onPrevious={onPrevious}
         canGoNext={true}
         canGoPrevious={position > 1}
+        isQRCode={isQRCode}
+        onCodeTypeChange={onCodeTypeChange}
       />
       <div className="swipe-hint">
         Tap number to edit • Swipe left for next • Swipe right for previous

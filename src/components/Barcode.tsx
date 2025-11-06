@@ -10,6 +10,8 @@ interface BarcodeProps {
   onPrevious: () => void;
   canGoNext: boolean;
   canGoPrevious: boolean;
+  isQRCode: boolean;
+  onCodeTypeChange: (isQRCode: boolean) => void;
 }
 
 export function BarcodeDisplay({
@@ -19,8 +21,10 @@ export function BarcodeDisplay({
   onPrevious,
   canGoNext,
   canGoPrevious,
+  isQRCode,
+  onCodeTypeChange,
 }: BarcodeProps) {
-  const [isQRCode, setIsQRCode] = useState(false);
+  // local state for editing only
   const [editingValue, setEditingValue] = useState<string | null>(null);
   const token = positionToToken(position);
   const numericPart = String(position).padStart(4, "0");
@@ -65,7 +69,7 @@ export function BarcodeDisplay({
       <div className="barcode-toggle-container">
         <button
           className={`barcode-toggle ${!isQRCode ? "active" : ""}`}
-          onClick={() => setIsQRCode(false)}
+          onClick={() => onCodeTypeChange(false)}
           type="button"
           aria-label="Switch to 1D barcode"
         >
@@ -73,7 +77,7 @@ export function BarcodeDisplay({
         </button>
         <button
           className={`barcode-toggle ${isQRCode ? "active" : ""}`}
-          onClick={() => setIsQRCode(true)}
+          onClick={() => onCodeTypeChange(true)}
           type="button"
           aria-label="Switch to QR code"
         >
