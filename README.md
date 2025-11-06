@@ -176,8 +176,18 @@ This project uses GitHub Actions for continuous integration and deployment:
 The app supports URL parameters for direct navigation:
 
 - `?position=42` - Jump directly to position 42 (displays token P0042)
+- `?code=qr` - Display tokens as QR codes (applies to finish tokens and Personal Barcode)
+  - Use `?code=1d` (or omit) to display 1D CODE128 barcodes
 
-Example: `https://johnsy.com/foretoken/?position=42`
+Examples:
+
+- `https://johnsy.com/foretoken/?position=42`
+- `https://johnsy.com/foretoken/?position=42&code=qr`
+
+Notes:
+
+- The `code` selection is reflected in the UI toggle and is kept in the URL, so you can share a link that opens in the same mode.
+- The selection affects both the finish token display and the Personal Barcode view.
 
 ## Technical Details
 

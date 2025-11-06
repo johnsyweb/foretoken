@@ -6,6 +6,7 @@ describe("BarcodeDisplay", () => {
   const mockOnPositionChange = jest.fn();
   const mockOnNext = jest.fn();
   const mockOnPrevious = jest.fn();
+  const mockOnCodeTypeChange = jest.fn();
 
   const defaultProps = {
     position: 1,
@@ -14,12 +15,15 @@ describe("BarcodeDisplay", () => {
     onPrevious: mockOnPrevious,
     canGoNext: true,
     canGoPrevious: false,
+    isQRCode: false,
+    onCodeTypeChange: mockOnCodeTypeChange,
   };
 
   beforeEach(() => {
     mockOnPositionChange.mockClear();
     mockOnNext.mockClear();
     mockOnPrevious.mockClear();
+    mockOnCodeTypeChange.mockClear();
   });
 
   it("displays the token prefix P", () => {
@@ -56,7 +60,7 @@ describe("BarcodeDisplay", () => {
     render(<BarcodeDisplay {...defaultProps} />);
     const qrButton = screen.getByLabelText("Switch to QR code");
     await user.click(qrButton);
-    expect(qrButton).toHaveClass("active");
+    expect(mockOnCodeTypeChange).toHaveBeenCalledWith(true);
   });
 
   it("allows editing the numeric part", async () => {
