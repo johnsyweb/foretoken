@@ -1,6 +1,6 @@
 {
   "name": "foretoken",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "type": "module",
   "description": "parkrun finish token generator for when events run out of physical tokens",
   "author": "Pete Johns (@johnsyweb)",

@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/johnsyweb/foretoken/compare/v1.2.0...v1.2.1) (2025-11-06)
+
+
+### Bug Fixes
+
+* **release:** ensure package.json version is updated by semantic-release and used in build ([08f6c85](https://github.com/johnsyweb/foretoken/commit/08f6c85a7b5a734a92ae700d87cef7f0b498c1f3))
+
 # [1.2.0](https://github.com/johnsyweb/foretoken/compare/v1.1.0...v1.2.0) (2025-11-06)
 
 
