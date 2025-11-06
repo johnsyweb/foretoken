@@ -157,6 +157,7 @@ function App() {
         isOpen={isPrintSheetOpen}
         onClose={() => setIsPrintSheetOpen(false)}
         onPrintComplete={handlePrintComplete}
+        isQRCode={isQRCode}
       />
       <footer className="app-footer">
         <p>

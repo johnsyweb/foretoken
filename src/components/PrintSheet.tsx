@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import Barcode from "react-barcode";
+import { QRCodeSVG } from "qrcode.react";
 import { createRoot } from "react-dom/client";
 import { positionToToken } from "../utils/tokenGenerator";
 
@@ -8,6 +9,7 @@ interface PrintSheetProps {
   isOpen: boolean;
   onClose: () => void;
   onPrintComplete: (lastPrintedPosition: number) => void;
+  isQRCode: boolean;
 }
 
 // Calculate tokens per page based on page size
@@ -31,7 +33,8 @@ const getTokensPerPage = (): number => {
 };
 
 const generatePrintHTML = (
-  tokens: Array<{ position: number; token: string }>
+  tokens: Array<{ position: number; token: string }>,
+  isQRCode: boolean
 ): Promise<string> => {
   // Create a temporary container to render React components
   const tempContainer = document.createElement("div");
@@ -40,8 +43,8 @@ const generatePrintHTML = (
   tempContainer.style.visibility = "hidden";
   document.body.appendChild(tempContainer);
 
-  // Render barcodes to get their SVG markup
-  const barcodeContainers: Array<{
+  // Render barcodes/QR codes to get their SVG markup
+  const codeContainers: Array<{
     position: number;
     token: string;
     container: HTMLDivElement;
@@ -49,33 +52,43 @@ const generatePrintHTML = (
   }> = [];
 
   tokens.forEach(({ token, position }) => {
-    const barcodeContainer = document.createElement("div");
-    tempContainer.appendChild(barcodeContainer);
-    const barcodeRoot = createRoot(barcodeContainer);
-    barcodeRoot.render(
-      React.createElement(Barcode, {
-        value: token,
-        format: "CODE128",
-        width: 1.5,
-        height: 30,
-        displayValue: false,
-        background: "#ffffff",
-        lineColor: "#000000",
-        margin: 0,
-      })
-    );
-    barcodeContainers.push({
+    const codeContainer = document.createElement("div");
+    tempContainer.appendChild(codeContainer);
+    const codeRoot = createRoot(codeContainer);
+    if (isQRCode) {
+      codeRoot.render(
+        React.createElement(QRCodeSVG, {
+          value: token,
+          size: 100,
+          level: "H",
+        })
+      );
+    } else {
+      codeRoot.render(
+        React.createElement(Barcode, {
+          value: token,
+          format: "CODE128",
+          width: 1.5,
+          height: 30,
+          displayValue: false,
+          background: "#ffffff",
+          lineColor: "#000000",
+          margin: 0,
+        })
+      );
+    }
+    codeContainers.push({
       position,
       token,
-      container: barcodeContainer,
-      root: barcodeRoot,
+      container: codeContainer,
+      root: codeRoot,
     });
   });
 
-  // Wait for barcodes to render, then extract SVG markup
+  // Wait for codes to render, then extract SVG markup
   return new Promise<string>((resolve) => {
     setTimeout(() => {
-      const svgMarkups = barcodeContainers.map(({ container, token }) => {
+      const svgMarkups = codeContainers.map(({ container, token }) => {
         const svg = container.querySelector("svg");
         return {
           svgHTML: svg ? svg.outerHTML : "",
@@ -84,7 +97,7 @@ const generatePrintHTML = (
       });
 
       // Clean up
-      barcodeContainers.forEach(({ root }) => {
+      codeContainers.forEach(({ root }) => {
         root.unmount();
       });
       document.body.removeChild(tempContainer);
@@ -93,8 +106,8 @@ const generatePrintHTML = (
       const tokensHTML = svgMarkups
         .map(
           ({ svgHTML, token }) => `
-        <div class="print-token">
-          <div class="print-token-barcode">${svgHTML}</div>
+        <div class="print-token ${isQRCode ? "print-token-qr" : ""}">
+          <div class="print-token-code">${svgHTML}</div>
           <div class="print-token-label">${token}</div>
         </div>
       `
@@ -146,23 +159,46 @@ const generatePrintHTML = (
       break-inside: avoid;
       box-sizing: border-box;
     }
-    .print-token-barcode {
-      height: 12mm;
-      width: 100%;
+    .print-token-qr {
+      flex-direction: row;
+      gap: 1mm;
+    }
+    .print-token-code {
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .print-token-barcode svg {
+    .print-token:not(.print-token-qr) .print-token-code {
       height: 12mm;
+      width: 100%;
+    }
+    .print-token-qr .print-token-code {
+      flex: 0 0 auto;
+      width: 18mm;
+      height: 18mm;
+    }
+    .print-token-code svg {
       max-width: 100%;
+      max-height: 100%;
+    }
+    .print-token:not(.print-token-qr) .print-token-code svg {
+      height: 12mm;
     }
     .print-token-label {
       font-size: 12pt;
-      margin-top: 0.25mm;
       color: black;
       text-align: center;
       font-weight: bold;
+    }
+    .print-token:not(.print-token-qr) .print-token-label {
+      margin-top: 0.25mm;
+    }
+    .print-token-qr .print-token-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11pt;
     }
   </style>
 </head>
@@ -191,6 +227,7 @@ export function PrintSheet({
   isOpen,
   onClose,
   onPrintComplete,
+  isQRCode,
 }: PrintSheetProps) {
   const printWindowRef = useRef<Window | null>(null);
 
@@ -206,7 +243,7 @@ export function PrintSheet({
     }
 
     try {
-      const html = await generatePrintHTML(tokens);
+      const html = await generatePrintHTML(tokens, isQRCode);
 
       // Open new window and write HTML
       const printWindow = window.open("", "_blank");
@@ -280,17 +317,24 @@ export function PrintSheet({
             {tokens.map((position) => {
               const token = positionToToken(position);
               return (
-                <div key={position} className="print-token">
-                  <div className="print-token-barcode">
-                    <Barcode
-                      value={token}
-                      format="CODE128"
-                      width={1}
-                      height={30}
-                      displayValue={false}
-                      background="#ffffff"
-                      lineColor="#000000"
-                    />
+                <div
+                  key={position}
+                  className={`print-token ${isQRCode ? "print-token-qr" : ""}`}
+                >
+                  <div className="print-token-code">
+                    {isQRCode ? (
+                      <QRCodeSVG value={token} size={72} level="H" />
+                    ) : (
+                      <Barcode
+                        value={token}
+                        format="CODE128"
+                        width={1}
+                        height={30}
+                        displayValue={false}
+                        background="#ffffff"
+                        lineColor="#000000"
+                      />
+                    )}
                   </div>
                   <div className="print-token-label">{token}</div>
                 </div>

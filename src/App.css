@@ -790,16 +790,30 @@ body {
   box-sizing: border-box;
 }
 
-.print-token-barcode {
-  flex: 1;
+.print-token-qr {
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.print-token-code {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   overflow: hidden;
 }
 
-.print-token-barcode svg {
+.print-token:not(.print-token-qr) .print-token-code {
+  flex: 1;
+  width: 100%;
+}
+
+.print-token-qr .print-token-code {
+  flex: 0 0 auto;
+  width: 40%;
+  max-width: 60px;
+}
+
+.print-token-code svg {
   max-width: 100%;
   height: auto;
 }
@@ -809,8 +823,19 @@ body {
   font-size: 0.75rem;
   font-weight: bold;
   text-align: center;
-  margin-top: 0.25rem;
   color: var(--parkrun-black);
+}
+
+.print-token:not(.print-token-qr) .print-token-label {
+  margin-top: 0.25rem;
+}
+
+.print-token-qr .print-token-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
 }
 
 .print-sheet-actions {
@@ -954,18 +979,54 @@ body {
     box-sizing: border-box;
   }
 
-  .print-token-barcode {
-    height: 12mm;
+  .print-token-qr {
+    flex-direction: row;
+    gap: 1mm;
+  }
+
+  .print-token-code {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  .print-token:not(.print-token-qr) .print-token-code {
+    height: 12mm;
+    width: 100%;
+  }
+
+  .print-token-qr .print-token-code {
+    flex: 0 0 auto;
+    width: 18mm;
+    height: 18mm;
+  }
+
+  .print-token-code svg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .print-token:not(.print-token-qr) .print-token-code svg {
+    height: 12mm;
+  }
+
   .print-token-label {
     font-size: 12pt;
-    margin-top: 0.25mm;
     color: black;
     text-align: center;
+    font-weight: bold;
+  }
+
+  .print-token:not(.print-token-qr) .print-token-label {
+    margin-top: 0.25mm;
+  }
+
+  .print-token-qr .print-token-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
   }
 }
 
