@@ -78,7 +78,12 @@
       [
         "@semantic-release/git",
         {
-          "assets": ["CHANGELOG.md", "package.json"],
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "public/og-image.png",
+            "screenshot.png"
+          ],
           "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
         }
       ]
