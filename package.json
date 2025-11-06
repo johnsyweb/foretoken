@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "parkrun finish token generator for when events run out of physical tokens",
-  "author": "",
+  "author": "Pete Johns (@johnsyweb)",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^13.1.1",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.5.1",
@@ -71,11 +72,19 @@
     ]
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
       [
         "@semantic-release/git",
         {
