@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/johnsyweb/foretoken/compare/v1.2.2...v1.3.0) (2025-11-06)
+
+
+### Features
+
+* **print:** use QR codes for printed tokens when QR preference is selected ([98cdbe1](https://github.com/johnsyweb/foretoken/commit/98cdbe1ee0dc8fc75cdda822771b402b1ec1d23c))
+
 ## [1.2.2](https://github.com/johnsyweb/foretoken/compare/v1.2.1...v1.2.2) (2025-11-06)
 
 ### Bug Fixes
