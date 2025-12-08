@@ -27,9 +27,9 @@
   "dependencies": {
     "html2canvas": "^1.4.1",
     "qrcode.react": "^4.2.0",
-    "react": "^19.2.0",
+    "react": "^19.2.1",
     "react-barcode": "^1.6.1",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -40,8 +40,8 @@
     "@testing-library/user-event": "^14.5.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "^5.1.2",
