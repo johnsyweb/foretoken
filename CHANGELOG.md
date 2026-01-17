@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/johnsyweb/foretoken/compare/v1.3.0...v1.4.0) (2026-01-17)
+
+
+### Features
+
+* add schema.org structured data and optimize SEO for parkrun finish token generator ([69aabdc](https://github.com/johnsyweb/foretoken/commit/69aabdc594e54108c2556d2d3737d9503cee0341))
+* update domain to www.johnsy.com ([672106c](https://github.com/johnsyweb/foretoken/commit/672106c32a504ed3303098a8788c565d70aff556))
+
 # [1.3.0](https://github.com/johnsyweb/foretoken/compare/v1.2.2...v1.3.0) (2025-11-06)
 
 
