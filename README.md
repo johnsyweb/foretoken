@@ -1,10 +1,16 @@
 # Foretoken
 
-**parkrun finish token generator for when events run out of physical tokens**
+**Free parkrun finish token generator for when events run out of physical tokens**
 
 ![Foretoken Screenshot](./screenshot.png)
 
+**Foretoken** is a mobile-optimized tool that generates P#### barcodes and QR codes for parkrun events. It's perfect for parkrun volunteers and event organizers who need to support finishers when physical tokens are unavailable. The app features swipe gestures for easy navigation, 1D barcodes and 2D QR code support, and the ability to print replacement tokens on standard paper.
+
+### The Problem
+
 Have you ever been at a parkrun event that has been _so_ popular that the event team has run out of tokens? Folks scramble to resort the used tokens so that the barcode scanners can rescan them for finishers using the parkrun Virtual Volunteer app. It's all a bit stressful. Especially having so many people waiting, in a patient hurry to get to their post-parkrun coffee.
+
+### The Solution
 
 What if each of the finishers were given their position number in a quicker way at the end of the finish funnel? Say, by writing their number on the back of their hand with a pen? Pens are easy to come by.
 

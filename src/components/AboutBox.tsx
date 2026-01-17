@@ -68,6 +68,13 @@ export function AboutBox() {
         <div className="about-content">
           <h2>About Foretoken</h2>
           <p>
+            <strong>Foretoken</strong> is a free parkrun finish token generator
+            for when events run out of physical tokens. This mobile-optimized
+            tool generates P#### barcodes and QR codes for parkrun events,
+            making it easy for volunteers and event organizers to support
+            finishers when physical tokens are unavailable.
+          </p>
+          <p>
             Have you ever been at a parkrun event that has been <em>so</em>{" "}
             popular that the event team has run out of tokens? Folks scramble to
             resort the used tokens so that the barcode scanners can rescan them
