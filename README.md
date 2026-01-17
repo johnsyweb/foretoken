@@ -10,7 +10,7 @@ What if each of the finishers were given their position number in a quicker way 
 
 And when they get to the barcode scanner, they present their personal barcode (often on their phone or smart watch), and a generated finish token on a smartphone screen. Then off to sign up to volunteer for a future event and drink coffee with their mates? Easy!
 
-Enter [johnsy.com/foretoken](https://johnsy.com/foretoken)!
+Enter [www.johnsy.com/foretoken](https://www.johnsy.com/foretoken)!
 
 This webapp, optimised for phone usage, will convert a finish position number (say 308), to a finish token barcode ("P0308"), for scanning by the parkrun Virtual Volunteer app. At a popular event that has run out of finish tokens, it should be easy to find a Finish Token Support volunteer with a smart-phone, who can accompany a Barcode Scanner and display the correct generated finish tokens. Want the next sequential one? Swipe left! Or enter the number directly by tapping the token number.
 
@@ -27,7 +27,7 @@ This webapp, optimised for phone usage, will convert a finish position number (s
 
 ## Live Demo
 
-**🌐 Live Site:** [johnsy.com/foretoken](https://johnsy.com/foretoken/)
+**🌐 Live Site:** [www.johnsy.com/foretoken](https://www.johnsy.com/foretoken/)
 
 ### Adding to Home Screen
 
@@ -181,8 +181,8 @@ The app supports URL parameters for direct navigation:
 
 Examples:
 
-- `https://johnsy.com/foretoken/?position=42`
-- `https://johnsy.com/foretoken/?position=42&code=qr`
+- `https://www.johnsy.com/foretoken/?position=42`
+- `https://www.johnsy.com/foretoken/?position=42&code=qr`
 
 Notes:
 

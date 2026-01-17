@@ -171,7 +171,7 @@ function App() {
           </a>{" "}
           by{" "}
           <a
-            href="https://johnsy.com"
+            href="https://www.johnsy.com"
             target="_blank"
             rel="noopener noreferrer"
           >

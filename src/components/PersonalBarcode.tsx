@@ -102,7 +102,7 @@ export function PersonalBarcode({
             }
             detailsLines.push("");
             detailsLines.push(
-              "Shared from Foretoken — https://johnsy.com/foretoken/"
+              "Shared from Foretoken — https://www.johnsy.com/foretoken/"
             );
             const shareText = detailsLines.join("\n");
             navigator
