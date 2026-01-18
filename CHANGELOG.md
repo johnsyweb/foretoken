@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/johnsyweb/foretoken/compare/v1.4.0...v1.5.0) (2026-01-18)
+
+
+### Features
+
+* add sitemap for SEO ([98573be](https://github.com/johnsyweb/foretoken/commit/98573be3beb791faf2d473299106cb04f6d1cf4f))
+
 # [1.4.0](https://github.com/johnsyweb/foretoken/compare/v1.3.0...v1.4.0) (2026-01-17)
 
 
