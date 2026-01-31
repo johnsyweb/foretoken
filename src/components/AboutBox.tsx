@@ -46,9 +46,16 @@ const homeScreenInstructions: Record<
   ],
 };
 
-export function AboutBox() {
+interface AboutBoxProps {
+  position?: number;
+}
+
+export function AboutBox({ position }: AboutBoxProps) {
   const [isOpen, setIsOpen] = useState(false);
   const browserType = useMemo(() => getBrowserType(), []);
+
+  // Show new event suggestion if position >= 200
+  const showEventSuggestion = typeof position === "number" && position >= 200;
 
   return (
     <div className="about-box">
@@ -57,17 +64,44 @@ export function AboutBox() {
         onClick={() => setIsOpen(!isOpen)}
         type="button"
         aria-expanded={isOpen}
-        aria-label={isOpen ? "Hide app information" : "Show app information"}
+        aria-label={isOpen ? (showEventSuggestion ? "Hide event suggestion" : "Hide app information") : (showEventSuggestion ? "Show event suggestion" : "Show app information")}
       >
         <span className="about-toggle-text">
-          {isOpen ? "Hide" : "What is this?"}
+          {isOpen ? "Hide" : showEventSuggestion ? "Thinking bigger?" : "What is this?"}
         </span>
         <span className="about-toggle-icon">{isOpen ? "−" : "+"}</span>
       </button>
       {isOpen && (
         <div className="about-content">
-          <h2>About Foretoken</h2>
-          <p>
+          {showEventSuggestion ? (
+            <>
+              <h2>Help your local parkrun community grow!</h2>
+              <p>
+                This parkrun event is thriving! When we start to run out of finish tokens, it is time to consider starting a new parkrun event nearby. This helps keep courses safe and fun for everyone, and gives more people the chance to enjoy a free, fun and friendly 5km each week.
+              </p>
+              <p>
+                Being an event director is a truly rewarding way to support your community. If you are interested, check out these resources:
+              </p>
+              <ul>
+                <li>
+                  <a href="https://www.parkrun.com/about/join-us/start-your-own-event/" target="_blank" rel="noopener noreferrer">
+                    How to start a new parkrun event
+                  </a>
+                </li>
+                <li>
+                  <a href="https://volunteer.parkrun.com/hc/en-us/articles/16857103665170-2-2-Event-Location-and-Course-Design-Guidance#h_01HWSR6K8HMSN37WCJ13KB7YY1" target="_blank" rel="noopener noreferrer">
+                    Event location and course design guidance
+                  </a>
+                </li>
+              </ul>
+              <p>
+                Have a chat with today's event team if you would like to know more!
+              </p>
+            </>
+          ) : (
+            <>
+              <h2>About Foretoken</h2>
+              <p>
             <strong>Foretoken</strong> is a free parkrun finish token generator
             for when events run out of physical tokens. This mobile-optimized
             tool generates P#### barcodes and QR codes for parkrun events,
@@ -143,6 +177,8 @@ export function AboutBox() {
             <strong>Note:</strong> This app is not officially associated with
             parkrun. It is written by parkrun volunteers for parkrun volunteers.
           </p>
+            </>
+          )}
         </div>
       )}
     </div>
