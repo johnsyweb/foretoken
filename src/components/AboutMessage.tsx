@@ -28,7 +28,8 @@ const browserType = (() => {
   if (typeof window === "undefined") return "other";
   const ua = navigator.userAgent.toLowerCase();
   const isIOS = /iphone|ipad|ipod/.test(ua);
-  const isSafari = /safari/.test(ua) && !/chrome|chromium|edge/.test(ua) && isIOS;
+  const isSafari =
+    /safari/.test(ua) && !/chrome|chromium|edge/.test(ua) && isIOS;
   const isChrome = /chrome/.test(ua) && !/edge|edg/.test(ua);
   const isEdge = /edge|edg/.test(ua);
   if (isSafari) return "safari";
@@ -43,64 +44,62 @@ export const aboutMessageProps = {
     <>
       <h2>About Foretoken</h2>
       <p>
-        <strong>Foretoken</strong> is a free parkrun finish token generator
-        for when events run out of physical tokens. This mobile-optimized
-        tool generates P#### barcodes and QR codes for parkrun events,
-        making it easy for volunteers and event organizers to support
-        finishers when physical tokens are unavailable.
+        <strong>Foretoken</strong> is a free parkrun finish token generator for
+        when events run out of physical tokens. This mobile-optimized tool
+        generates P#### barcodes and QR codes for parkrun events, making it easy
+        for volunteers and event organizers to support finishers when physical
+        tokens are unavailable.
       </p>
       <p>
-        Have you ever been at a parkrun event that has been <em>so</em>{" "}
-        popular that the event team has run out of tokens? Folks scramble to
-        resort the used tokens so that the barcode scanners can rescan them
-        for finishers using the parkrun Virtual Volunteer app. It's all a
-        bit stressful.
+        Have you ever been at a parkrun event that has been <em>so</em> popular
+        that the event team has run out of tokens? Folks scramble to resort the
+        used tokens so that the barcode scanners can rescan them for finishers
+        using the parkrun Virtual Volunteer app. It's all a bit stressful.
       </p>
       <p>
         Foretoken solves this by generating finish token barcodes on your
         smartphone. At a popular event that has run out of finish tokens,
-        instead of handing out physical tokens at the end of the finish
-        funnel, volunteers can write each finisher's position number on the
-        back of their hand with a pen. Then, when they get to the barcode
-        scanner, a Finish Token Support volunteer can use this app to
-        display the correct generated finish tokens alongside a Barcode
-        Scanner.
+        instead of handing out physical tokens at the end of the finish funnel,
+        volunteers can write each finisher's position number on the back of
+        their hand with a pen. Then, when they get to the barcode scanner, a
+        Finish Token Support volunteer can use this app to display the correct
+        generated finish tokens alongside a Barcode Scanner.
       </p>
       <h3>How to use</h3>
       <ul>
         <li>
           <strong>Navigate:</strong> Use the{" "}
           <span className="nav-indicator">&lt;</span> and{" "}
-          <span className="nav-indicator">&gt;</span> buttons, swipe
-          left/right, or use arrow keys (← decreases, → increases)
+          <span className="nav-indicator">&gt;</span> buttons, swipe left/right,
+          or use arrow keys (← decreases, → increases)
         </li>
         <li>
-          <strong>Enter position:</strong> Tap the number below the barcode
-          to edit it directly
+          <strong>Enter position:</strong> Tap the number below the barcode to
+          edit it directly
         </li>
         <li>
-          <strong>Barcode types:</strong> Toggle between 1D barcode and QR
-          code formats
+          <strong>Barcode types:</strong> Toggle between 1D barcode and QR code
+          formats
         </li>
         <li>
-          <strong>Print tokens:</strong> Use the 🖨️ button to print a sheet
-          of replacement finish tokens (A4 or Letter format, automatically
-          detected based on your locale). This feature is ideal for
-          preparing tokens in advance when large attendance is anticipated
+          <strong>Print tokens:</strong> Use the 🖨️ button to print a sheet of
+          replacement finish tokens (A4 or Letter format, automatically detected
+          based on your locale). This feature is ideal for preparing tokens in
+          advance when large attendance is anticipated
         </li>
         <li>
-          <strong>Personal barcode:</strong> Store your parkrun barcode and
-          ICE details for easy sharing as a credit-card sized image
+          <strong>Personal barcode:</strong> Store your parkrun barcode and ICE
+          details for easy sharing as a credit-card sized image
         </li>
         <li>
-          <strong>Share:</strong> Add <code>?position=308</code> to the URL
-          to share a specific position
+          <strong>Share:</strong> Add <code>?position=308</code> to the URL to
+          share a specific position
         </li>
       </ul>
       <h3>Add to Home Screen</h3>
       <p>
-        For quick access during parkrun events, you can add Foretoken to
-        your device's home screen:
+        For quick access during parkrun events, you can add Foretoken to your
+        device's home screen:
       </p>
       <ul>
         {homeScreenInstructions[browserType].map((instruction, index) => (
@@ -111,8 +110,8 @@ export const aboutMessageProps = {
         ))}
       </ul>
       <p>
-        Once added, Foretoken will appear on your home screen like a regular
-        app for easy access during events.
+        Once added, Foretoken will appear on your home screen like a regular app
+        for easy access during events.
       </p>
       <p className="about-note">
         <strong>Note:</strong> This app is not officially associated with

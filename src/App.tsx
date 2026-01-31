@@ -29,7 +29,6 @@ function getInitialIsQRCode(): boolean {
   return codeParam === "qr";
 }
 
-
 function App() {
   const [position, setPosition] = useState(getInitialPosition);
   const [isQRCode, setIsQRCode] = useState(getInitialIsQRCode);
@@ -123,8 +122,12 @@ function App() {
 
   // AboutBox message logic
   const showEventSuggestion = typeof position === "number" && position >= 200;
-  const messageProps = showEventSuggestion ? eventSuggestionMessageProps : aboutMessageProps;
-  const ariaLabel = aboutOpen ? `Hide ${messageProps.ariaLabel.replace('Show ', '')}` : messageProps.ariaLabel;
+  const messageProps = showEventSuggestion
+    ? eventSuggestionMessageProps
+    : aboutMessageProps;
+  const ariaLabel = aboutOpen
+    ? `Hide ${messageProps.ariaLabel.replace("Show ", "")}`
+    : messageProps.ariaLabel;
   const toggleText = aboutOpen ? "Hide" : messageProps.toggleText;
   const aboutContent = messageProps.content;
 

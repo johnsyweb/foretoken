@@ -8,7 +8,13 @@ interface AboutBoxProps {
   children: React.ReactNode;
 }
 
-export function AboutBox({ isOpen, onToggle, ariaLabel, toggleText, children }: AboutBoxProps) {
+export function AboutBox({
+  isOpen,
+  onToggle,
+  ariaLabel,
+  toggleText,
+  children,
+}: AboutBoxProps) {
   return (
     <div className="about-box">
       <button
