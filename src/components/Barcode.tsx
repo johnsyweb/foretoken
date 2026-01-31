@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Barcode from "react-barcode";
 import { QRCodeSVG } from "qrcode.react";
 import { positionToToken } from "../utils/tokenGenerator";

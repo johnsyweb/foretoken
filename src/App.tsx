@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import { TokenDisplay } from "./components/TokenDisplay";
 import { PersonalBarcode } from "./components/PersonalBarcode";
 import { AboutBox } from "./components/AboutBox";
+import { eventSuggestionMessageProps } from "./components/EventSuggestionMessage";
+import { aboutMessageProps } from "./components/AboutMessage";
 import { PrintSheet } from "./components/PrintSheet";
 import { isValidPosition } from "./utils/tokenGenerator";
 import packageJson from "../package.json";
@@ -31,6 +33,7 @@ function App() {
   const [position, setPosition] = useState(getInitialPosition);
   const [isQRCode, setIsQRCode] = useState(getInitialIsQRCode);
   const [isPrintSheetOpen, setIsPrintSheetOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   const updateUrl = useCallback(
     (newPosition: number, nextIsQRCode: boolean = isQRCode) => {
@@ -117,6 +120,17 @@ function App() {
     updateUrl(nextPosition);
   };
 
+  // AboutBox message logic
+  const showEventSuggestion = typeof position === "number" && position >= 200;
+  const messageProps = showEventSuggestion
+    ? eventSuggestionMessageProps
+    : aboutMessageProps;
+  const ariaLabel = aboutOpen
+    ? `Hide ${messageProps.ariaLabel.replace("Show ", "")}`
+    : messageProps.ariaLabel;
+  const toggleText = aboutOpen ? "Hide" : messageProps.toggleText;
+  const aboutContent = messageProps.content;
+
   return (
     <div className="app">
       <header className="app-header">
@@ -142,7 +156,14 @@ function App() {
         </div>
       </header>
       <main className="app-main">
-        <AboutBox />
+        <AboutBox
+          isOpen={aboutOpen}
+          onToggle={() => setAboutOpen((open) => !open)}
+          ariaLabel={ariaLabel}
+          toggleText={toggleText}
+        >
+          {aboutContent}
+        </AboutBox>
         <TokenDisplay
           position={position}
           onNext={handleNext}
