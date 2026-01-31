@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/johnsyweb/foretoken/compare/v1.5.0...v1.5.1) (2026-01-31)
+
+
+### Bug Fixes
+
+* aboutbox tests ([7e7ea4d](https://github.com/johnsyweb/foretoken/commit/7e7ea4d2467805a9e58ff9f7e0a20aaf64cdbb3f))
+* migrate to ESLint v9 flat config, use globals, and fix React import for Barcode component ([6f11b3d](https://github.com/johnsyweb/foretoken/commit/6f11b3d3280176aa350f59a29c26a6654fedff1c))
+
 # [1.5.0](https://github.com/johnsyweb/foretoken/compare/v1.4.0...v1.5.0) (2026-01-18)
 
 
