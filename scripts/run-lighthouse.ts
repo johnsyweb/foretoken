@@ -97,7 +97,7 @@ const logScores = (scores: ReturnType<typeof getScores>) => {
 
 const logFailingAudits = (
   report: Awaited<ReturnType<typeof loadReport>>,
-  categoryId: "best-practices" | "accessibility" | "seo",
+  categoryId: "best-practices" | "accessibility" | "seo"
 ) => {
   const category = report.categories?.[categoryId];
   if (!category?.auditRefs) return;
@@ -179,7 +179,7 @@ const main = async () => {
         }
       }
       throw new Error(
-        `Lighthouse scores below threshold: ${failedCategories.join(", ")}`,
+        `Lighthouse scores below threshold: ${failedCategories.join(", ")}`
       );
     }
   } finally {

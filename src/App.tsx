@@ -137,7 +137,9 @@ function App() {
         <nav className="breadcrumbs" aria-label="Breadcrumb">
           <a href="https://www.johnsy.com/">johnsy.com</a>
           <span aria-hidden="true">/</span>
-          <a href="https://www.johnsy.com/parkrun-utility/">parkrun utilities</a>
+          <a href="https://www.johnsy.com/parkrun-utility/">
+            parkrun utilities
+          </a>
           <span aria-hidden="true">/</span>
           <span aria-current="page">Foretoken</span>
         </nav>
@@ -195,16 +197,16 @@ function App() {
             rel="noopener noreferrer"
           >
             v{packageJson.version}
-          </a>
-          {' '}• by{' '}
+          </a>{" "}
+          • by{" "}
           <a
             href="https://www.johnsy.com"
             target="_blank"
             rel="noopener noreferrer"
           >
             Pete Johns
-          </a>
-          {' '}(
+          </a>{" "}
+          (
           <a
             href="https://github.com/johnsyweb"
             target="_blank"
