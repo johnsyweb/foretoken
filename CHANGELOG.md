@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/johnsyweb/foretoken/compare/v1.5.1...v1.6.0) (2026-02-11)
+
+
+### Bug Fixes
+
+* **footer:** add whitespace around version bullet and author ([0c5a736](https://github.com/johnsyweb/foretoken/commit/0c5a736d9d36ef4a5aaa0dec908deadd5a363354))
+
+
+### Features
+
+* **seo:** refresh metadata and add breadcrumb schema ([26edd69](https://github.com/johnsyweb/foretoken/commit/26edd6908c062badeba1662b05e1e8f7acc3c100))
+
 ## [1.5.1](https://github.com/johnsyweb/foretoken/compare/v1.5.0...v1.5.1) (2026-01-31)
 
 
