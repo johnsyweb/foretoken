@@ -48,6 +48,36 @@ body {
   padding: 1rem;
 }
 
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.breadcrumbs a {
+  color: var(--parkrun-apricot);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+  text-decoration: underline;
+}
+
+.breadcrumbs span[aria-current="page"] {
+  color: var(--parkrun-white);
+  font-weight: 600;
+}
+
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -80,6 +110,20 @@ body {
 
 .personal-barcode-toggle:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.personal-barcode-toggle:focus-visible {
+  outline: 3px solid var(--parkrun-apricot);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--parkrun-apricot);
+  outline-offset: 2px;
 }
 
 .personal-barcode-modal {
@@ -284,32 +328,53 @@ body {
   width: 100%;
 }
 
-.app-footer {
+.app-main {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+footer {
   background-color: var(--parkrun-aubergine);
   color: var(--parkrun-white);
-  padding: 1.5rem 1rem;
+  padding: 1rem 2rem;
   text-align: center;
   font-size: 0.875rem;
+  flex-shrink: 0;
+  line-height: 1.4;
   margin-top: auto;
 }
 
-.app-footer p {
-  margin: 0.5rem 0;
-  line-height: 1.5;
+footer p {
+  margin: 0.25rem 0;
 }
 
-.app-footer a {
-  color: var(--parkrun-apricot);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.app-footer a:hover {
-  opacity: 0.8;
+footer a {
+  color: var(--parkrun-white);
   text-decoration: underline;
+  text-decoration-color: var(--parkrun-apricot);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
-.app-footer strong {
+footer a:hover {
+  color: var(--parkrun-apricot);
+  text-decoration-color: var(--parkrun-white);
+}
+
+footer a:focus-visible {
+  outline: 3px solid var(--parkrun-apricot);
+  outline-offset: 2px;
+}
+
+footer strong {
   font-weight: 600;
 }
 
@@ -664,6 +729,18 @@ body {
 
   .app-footer p {
     margin: 0.4rem 0;
+  }
+}
+
+@media (max-width: 640px) {
+  footer {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  footer p {
+    margin: 0.25rem 0;
   }
 }
 

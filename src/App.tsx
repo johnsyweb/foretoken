@@ -134,6 +134,15 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
+        <nav className="breadcrumbs" aria-label="Breadcrumb">
+          <a href="https://www.johnsy.com/">johnsy.com</a>
+          <span aria-hidden="true">/</span>
+          <a href="https://www.johnsy.com/parkrun-utility/">
+            parkrun utilities
+          </a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Foretoken</span>
+        </nav>
         <div className="header-content">
           <div>
             <h1>Foretoken</h1>
@@ -180,9 +189,8 @@ function App() {
         onPrintComplete={handlePrintComplete}
         isQRCode={isQRCode}
       />
-      <footer className="app-footer">
+      <footer>
         <p>
-          <strong>Foretoken</strong>{" "}
           <a
             href="https://github.com/johnsyweb/foretoken/blob/main/CHANGELOG.md"
             target="_blank"
@@ -190,7 +198,7 @@ function App() {
           >
             v{packageJson.version}
           </a>{" "}
-          by{" "}
+          • by{" "}
           <a
             href="https://www.johnsy.com"
             target="_blank"
@@ -206,11 +214,8 @@ function App() {
           >
             @johnsyweb
           </a>
-          )
-        </p>
-        <p>
-          Licensed under MIT. Not officially associated with parkrun. Written by
-          parkrun volunteers for parkrun volunteers.
+          ) • Licensed under MIT • Not officially associated with parkrun •
+          Written by parkrun volunteers for parkrun volunteers.
         </p>
       </footer>
     </div>
