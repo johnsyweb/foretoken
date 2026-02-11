@@ -1,0 +1,252 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  # Validation jobs - run in parallel
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm run type-check
+
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format check
+        run: pnpm run format:check
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test
+        run: pnpm run test --coverage
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v5
+        if: always()
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+
+  # Build after all validation passes
+  build:
+    needs: [lint, type-check, format-check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: ./dist
+          retention-days: 1
+
+  # Release - only on main branch push
+  release:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm release
+
+      - name: Fetch updated commit
+        run: git fetch origin main && git checkout main && git pull origin main
+
+      - name: Install dependencies (after version update)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Start dev server (for screenshots)
+        run: |
+          PORT=3000 pnpm dev &
+          echo $! > devserver.pid
+          sleep 2
+
+      - name: Generate OG image
+        env:
+          PORT: 3000
+        run: pnpm generate:og-image
+
+      - name: Generate README screenshot
+        env:
+          PORT: 3000
+        run: pnpm generate:screenshot
+
+      - name: Stop dev server
+        if: always()
+        run: |
+          if [ -f devserver.pid ]; then kill $(cat devserver.pid) || true; fi
+
+      - name: Commit generated images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/og-image.png screenshot.png
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update generated images" || exit 0
+            git push
+          fi
+
+      - name: Upload release build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-release
+          path: ./dist
+          retention-days: 1
+
+  # Deploy Pages - only after release on main branch
+  deploy-pages:
+    needs: release
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-release
+          path: ./dist
+
+      - name: Upload to Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
