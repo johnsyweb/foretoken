@@ -34,3 +34,6 @@ coverage
 # Generated screenshots (committed to repo)
 # screenshot.png
 
+# Lighthouse reports (generated locally)
+lighthouse-report.json
+
