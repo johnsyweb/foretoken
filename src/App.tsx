@@ -137,7 +137,7 @@ function App() {
         <nav className="breadcrumbs" aria-label="Breadcrumb">
           <a href="https://www.johnsy.com/">johnsy.com</a>
           <span aria-hidden="true">/</span>
-          <a href="https://www.johnsy.com/parkrun-utility/">
+          <a href="https://www.johnsy.com/parkrun-utilities/">
             parkrun utilities
           </a>
           <span aria-hidden="true">/</span>
