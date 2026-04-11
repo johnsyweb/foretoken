@@ -20,6 +20,33 @@ Enter [www.johnsy.com/foretoken](https://www.johnsy.com/foretoken)!
 
 This webapp, optimised for phone usage, will convert a finish position number (say 308), to a finish token barcode ("P0308"), for scanning by the parkrun Virtual Volunteer app. At a popular event that has run out of finish tokens, it should be easy to find a Finish Token Support volunteer with a smart-phone, who can accompany a Barcode Scanner and display the correct generated finish tokens. Want the next sequential one? Swipe left! Or enter the number directly by tapping the token number.
 
+## Usage in the Wild
+
+- **Date/location context:** Christmas Day 2025, Australian event
+- **Operational scenario:** attendance demand exceeded available physical finish tokens
+- **Scale metric:** 270 finish tokens scanned using Foretoken
+- **Source:** [Field example (Facebook reel)](https://www.facebook.com/reel/1626035418809433/?comment_id=898138015977568&reply_comment_id=918261480936007&__tn__=R)
+- **Notes/caveats:** This is a field report, not a controlled benchmark
+
+We welcome usage stories at [foretoken@johnsy.com](mailto:foretoken@johnsy.com). For submission format, consent, and anonymity details, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## How Foretoken Compares
+
+When choosing an option under event pressure, start with official guidance and then pick the tool that best matches your workflow.
+
+| Option                                                                                                      | Primary use case                                       | Delivery mode                  | Works on phone at finish funnel                        | QR token support             | Batch print support            | Setup complexity                               | License                  | Maintenance signal              |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------ | ------------------------------------------------------ | ---------------------------- | ------------------------------ | ---------------------------------------------- | ------------------------ | ------------------------------- |
+| [parkrun Emergency Reprints](https://wiki.parkrun.com/index.php/Finish_Position_Barcode#Emergency_Reprints) | Official fallback process for emergency token handling | Official documentation/process | Not primarily designed for live phone display workflow | Not specified as QR-first    | Yes, process supports reprints | Low if your team already uses official process | Official parkrun process | Maintained as official guidance |
+| [johnsyweb/foretoken](https://github.com/johnsyweb/foretoken)                                               | On-day live token display plus optional prep printing  | Frontend static web app        | Yes                                                    | Yes                          | Yes                            | Low                                            | MIT                      | Active                          |
+| [Jake-Lofthouse/parkrun-token-generator](https://github.com/Jake-Lofthouse/parkrun-token-generator)         | Token generation and printing alternative              | Frontend web app               | Partial/varies by device                               | Not a stated primary feature | Yes                            | Low to medium                                  | MIT                      | Active                          |
+| [jones139/parkrun_tokens](https://github.com/jones139/parkrun_tokens)                                       | Print-focused token generation workflow                | Python script/app              | No (desktop/script-oriented)                           | Not a stated primary feature | Yes                            | Medium                                         | GPL-3.0                  | Active                          |
+
+Choose this when:
+
+- Choose official emergency reprints when your team already uses that process and you need the minimum process change.
+- Choose Foretoken when you need fast, on-day, phone-based token display at the finish funnel and scanner flow.
+- Choose print-focused alternatives when preparing large printed batches in advance is your primary need.
+
 ## Features
 
 - **Barcode Generation**: Generate parkrun finish tokens (P#### format) as scannable 1D barcodes or 2D QR codes
