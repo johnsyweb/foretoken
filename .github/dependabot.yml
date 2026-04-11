@@ -8,14 +8,11 @@ updates:
       day: 'monday'
     open-pull-requests-limit: 10
     groups:
-      development-dependencies:
-        dependency-type: 'development'
+      all-dependencies:
+        patterns:
+          - '*'
         update-types:
-          - 'minor'
-          - 'patch'
-      production-dependencies:
-        dependency-type: 'production'
-        update-types:
+          - 'major'
           - 'minor'
           - 'patch'
     commit-message:
@@ -28,6 +25,10 @@ updates:
     schedule:
       interval: 'weekly'
       day: 'monday'
+    groups:
+      all-actions:
+        patterns:
+          - '*'
     commit-message:
       prefix: 'chore(ci):'
 
