@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/johnsyweb/foretoken/compare/v1.6.0...v1.6.1) (2026-04-11)
+
+
+### Bug Fixes
+
+* **ci:** remove forbidden auto-approve step ([c0fcd3c](https://github.com/johnsyweb/foretoken/commit/c0fcd3c294d4f46e31f9199a988c22b03b1f1154))
+
 # [1.6.0](https://github.com/johnsyweb/foretoken/compare/v1.5.1...v1.6.0) (2026-02-11)
 
 
