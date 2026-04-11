@@ -1,3 +1,11 @@
+## [1.6.2](https://github.com/johnsyweb/foretoken/compare/v1.6.1...v1.6.2) (2026-04-11)
+
+
+### Bug Fixes
+
+* **types:** add vite ambient type declarations ([855c174](https://github.com/johnsyweb/foretoken/commit/855c1744f1c468b0d795e19b604928810da8d058))
+* **types:** silence TS 6 deprecation for jest ([9625788](https://github.com/johnsyweb/foretoken/commit/9625788d18275877ec34a3d766835c21de0b109a))
+
 ## [1.6.1](https://github.com/johnsyweb/foretoken/compare/v1.6.0...v1.6.1) (2026-04-11)
 
 
