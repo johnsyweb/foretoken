@@ -113,6 +113,46 @@ export const aboutMessageProps = {
         Once added, Foretoken will appear on your home screen like a regular app
         for easy access during events.
       </p>
+      <h3>See also</h3>
+      <p>Need to compare options quickly?</p>
+      <ul>
+        <li>
+          <a
+            href="https://wiki.parkrun.com/index.php/Finish_Position_Barcode#Emergency_Reprints"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Official: parkrun Emergency Reprints guide
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/johnsyweb/foretoken#how-foretoken-compares"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Comparison: How Foretoken compares
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/Jake-Lofthouse/parkrun-token-generator"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Community alternative: Jake-Lofthouse/parkrun-token-generator
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/jones139/parkrun_tokens"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Community alternative: jones139/parkrun_tokens
+          </a>
+        </li>
+      </ul>
       <p className="about-note">
         <strong>Note:</strong> This app is not officially associated with
         parkrun. It is written by parkrun volunteers for parkrun volunteers.
