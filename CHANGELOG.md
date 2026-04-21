@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/johnsyweb/foretoken/compare/v1.7.0...v1.7.1) (2026-04-21)
+
+
+### Bug Fixes
+
+* **style:** visually hide ([4fec8d7](https://github.com/johnsyweb/foretoken/commit/4fec8d7c0879da0b056a74ec8a3c0e0470f0255e))
+
 # [1.7.0](https://github.com/johnsyweb/foretoken/compare/v1.6.2...v1.7.0) (2026-04-11)
 
 
