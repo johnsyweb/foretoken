@@ -27,10 +27,10 @@ Helpful details include:
 Please run these before opening a pull request:
 
 ```bash
-pnpm run type-check
-pnpm run lint
-pnpm run format:check
-pnpm test
+aube run type-check
+aube run lint
+aube run format:check
+aube test
 ```
 
 ## Pull Request Guidelines

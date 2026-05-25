@@ -75,53 +75,31 @@ Once added, Foretoken will appear on the home screen like a regular app for easy
 
 ### Prerequisites
 
+Versions are managed via `mise.toml` for mise. The CI/CD workflows automatically read versions from this file.
+
 This project uses:
 
-- **mise** (formerly rtx) - Runtime version manager (see `.tool-versions`)
-- **Node.js** (version specified in `.tool-versions`)
-- **pnpm** (version specified in `.tool-versions`) - Package manager
+- **mise** (formerly rtx) - Runtime version manager
+- **Node.js**
+- **aube** - Package manager
 - **Playwright** (for generating OG images and icons)
 
-Versions are managed via `.tool-versions` for mise. The CI/CD workflows automatically read versions from this file.
 
 ### Quick Start
 
-1. **Install dependencies**:
+1. **Install Playwright browsers** (required for icon/OG image generation):
 
    ```bash
-   pnpm install
+   aubx playwright install chromium
    ```
 
-2. **Install Playwright browsers** (required for icon/OG image generation):
+2. **Start the development server**:
 
    ```bash
-   pnpm exec playwright install chromium
-   ```
-
-3. **Start the development server**:
-
-   ```bash
-   pnpm dev
+   aube dev
    ```
 
    The app will be available at `http://localhost:3000/foretoken/`
-
-### Available Scripts
-
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm preview` - Preview production build locally
-- `pnpm test` - Run tests once
-- `pnpm test:watch` - Run tests in watch mode
-- `pnpm test:coverage` - Run tests with coverage report
-- `pnpm lint` - Run ESLint
-- `pnpm format` - Format code with Prettier
-- `pnpm format:check` - Check if code is formatted
-- `pnpm type-check` - Check TypeScript types
-- `pnpm generate:icons` - Generate favicon and app icons from SVG
-- `pnpm generate:og-image` - Generate Open Graph preview image (requires dev server running)
-- `pnpm generate:screenshot` - Generate README screenshot (requires dev server running)
-- `pnpm release` - Run semantic-release (typically run automatically by CI/CD)
 
 ### Generating Assets
 
@@ -129,15 +107,15 @@ Icons are generated automatically during the build process (`prebuild` script). 
 
 ```bash
 # Generate icons from icon.svg (no server needed)
-pnpm generate:icons
+aube generate:icons
 
 # Generate OG image or screenshot (requires dev server running)
 # Terminal 1:
-pnpm dev
+aube dev
 
 # Terminal 2:
-pnpm generate:og-image      # For Open Graph preview image
-pnpm generate:screenshot    # For README screenshot
+aube generate:og-image      # For Open Graph preview image
+aube generate:screenshot    # For README screenshot
 ```
 
 **Note:** The screenshot (`screenshot.png`) is automatically generated during the CI/CD build process and committed to the repository.
@@ -155,10 +133,10 @@ This project uses:
 Run all checks:
 
 ```bash
-pnpm run type-check
-pnpm run lint
-pnpm run format:check
-pnpm test
+aube run type-check
+aube run lint
+aube run format:check
+aube test
 ```
 
 ### Testing
@@ -166,15 +144,15 @@ pnpm test
 Tests are written using Jest and React Testing Library. Run tests with:
 
 ```bash
-pnpm test                # Run once
-pnpm test:watch         # Watch mode
-pnpm test:coverage      # With coverage report
+aube test                # Run once
+aube test:watch         # Watch mode
+aube test:coverage      # With coverage report
 ```
 
 ### Building for Production
 
 ```bash
-pnpm build
+aube build
 ```
 
 The build output will be in the `dist/` directory, configured for deployment at the `/foretoken/` base path.

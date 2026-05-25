@@ -17,13 +17,13 @@ async function generateOgImage() {
   const url = `http://localhost:${port}/foretoken/?position=42`;
 
   console.log(`Loading page at ${url}...`);
-  console.log("Make sure dev server is running with 'pnpm dev'");
+  console.log("Make sure dev server is running with 'aube dev'");
 
   try {
     await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
   } catch (error) {
     console.error(
-      "Failed to load page. Make sure dev server is running with 'pnpm dev'"
+      "Failed to load page. Make sure dev server is running with 'aube dev'"
     );
     throw error;
   }

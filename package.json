@@ -17,13 +17,13 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,css,md}\"",
     "type-check": "tsc --noEmit",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {}\"",
-    "postinstall": "pnpm exec playwright install --with-deps chromium",
+    "postinstall": "aubx playwright install --with-deps chromium",
     "generate:og-image": "tsx scripts/generate-og-image.ts",
     "generate:icons": "tsx scripts/generate-icons.ts",
     "generate:screenshot": "tsx scripts/generate-screenshot.ts",
-    "test:lighthouse": "pnpm build && tsx scripts/run-lighthouse.ts",
+    "test:lighthouse": "aube build && tsx scripts/run-lighthouse.ts",
     "release": "semantic-release",
-    "prebuild": "pnpm run generate:icons"
+    "prebuild": "aube run generate:icons"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
@@ -41,8 +41,8 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.0",
-    "@types/react": "^19.2.14",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.59.4",
     "@typescript-eslint/parser": "^8.59.4",
@@ -62,10 +62,10 @@
     "playwright": "^1.60.0",
     "prettier": "^3.8.3",
     "semantic-release": "^25.0.3",
-    "ts-jest": "^29.4.9",
-    "tsx": "^4.22.2",
+    "ts-jest": "^29.4.11",
+    "tsx": "^4.22.3",
     "typescript": "^6.0.3",
-    "vite": "^8.0.13"
+    "vite": "^8.0.14"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
