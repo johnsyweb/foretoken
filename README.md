@@ -84,7 +84,6 @@ This project uses:
 - **aube** - Package manager
 - **Playwright** (for generating OG images and icons)
 
-
 ### Quick Start
 
 1. **Install Playwright browsers** (required for icon/OG image generation):
