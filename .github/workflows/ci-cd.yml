@@ -132,6 +132,9 @@ jobs:
       - name: Fetch updated commit
         run: git fetch origin main && git checkout main && git pull origin main
 
+      - name: Install Playwright Browsers
+        run: aubx playwright install --with-deps chromium
+
       - name: Build
         run: aube run build
 
