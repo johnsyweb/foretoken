@@ -95,6 +95,9 @@ jobs:
         with:
           install: true
 
+      - name: Install Playwright Browsers
+        run: aubx playwright install --with-deps chromium
+
       - name: Build
         run: aube run build
 
