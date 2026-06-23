@@ -89,7 +89,7 @@ This project uses:
 1. **Install Playwright browsers** (required for icon/OG image generation):
 
    ```bash
-   aubx playwright install chromium
+   aube exec playwright install chromium
    ```
 
 2. **Start the development server**:

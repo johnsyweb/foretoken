@@ -96,7 +96,7 @@ jobs:
           install: true
 
       - name: Install Playwright Browsers
-        run: aubx playwright install --with-deps chromium
+        run: aube exec playwright install --with-deps chromium
 
       - name: Build
         run: aube run build
@@ -133,7 +133,7 @@ jobs:
         run: git fetch origin main && git checkout main && git pull origin main
 
       - name: Install Playwright Browsers
-        run: aubx playwright install --with-deps chromium
+        run: aube exec playwright install --with-deps chromium
 
       - name: Build
         run: aube run build
