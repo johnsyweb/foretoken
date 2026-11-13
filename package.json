@@ -17,7 +17,6 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,css,md}\"",
     "type-check": "tsc --noEmit",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {}\"",
-    "postinstall": "aube exec playwright install --with-deps chromium",
     "generate:og-image": "tsx scripts/generate-og-image.ts",
     "generate:icons": "tsx scripts/generate-icons.ts",
     "generate:screenshot": "tsx scripts/generate-screenshot.ts",
@@ -105,10 +104,5 @@
       ]
     ]
   },
-  "aube": {
-    "allowBuilds": {
-      "esbuild": true,
-      "unrs-resolver": true
-    }
-  }
+  "packageManager": "aube@2.7.2"
 }

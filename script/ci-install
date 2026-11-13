@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#MISE description="Install dependencies from the frozen lockfile"
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+# Browsers are installed explicitly where build/asset scripts need them
+# (see script/cibuild and the CI build job), not on every install.
+export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+aube ci

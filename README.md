@@ -81,14 +81,15 @@ This project uses:
 
 - **mise** (formerly rtx) - Runtime version manager
 - **Node.js**
-- **aube** - Package manager
-- **Playwright** (for generating OG images and icons)
+- **aube** - Package manager (paranoid settings in [`aube-workspace.yaml`](aube-workspace.yaml); see [ADR 0001](docs/adr/0001-aube-paranoid-package-manager.md))
+- **Playwright** (for generating OG images and icons — install browsers explicitly; not on every `aube install`)
 
 ### Quick Start
 
-1. **Install Playwright browsers** (required for icon/OG image generation):
+1. **Install dependencies and Playwright browsers** (browsers required for icon/OG image generation):
 
    ```bash
+   mise run ci-install
    aube exec playwright install chromium
    ```
 
@@ -129,7 +130,13 @@ This project uses:
 - **Jest** for unit testing
 - **Husky** for git hooks (format and lint on commit)
 
-Run all checks:
+Run all checks (same gate as Renovate verify):
+
+```bash
+mise run cibuild
+```
+
+Or individually:
 
 ```bash
 aube run type-check
@@ -176,10 +183,7 @@ This project uses GitHub Actions for continuous integration and deployment:
     - Builds production website
     - Automatically deploys to GitHub Pages at `/foretoken/`
 
-- **Dependabot**: Keeps dependencies up to date
-  - Weekly updates for npm packages and GitHub Actions
-  - Groups minor and patch updates
-  - Auto-merges when CI passes
+- **Dependencies**: [Renovate](https://docs.renovatebot.com/) via [johnsyweb/renovate-config](https://github.com/johnsyweb/renovate-config); membership in [johnsyweb/github-infra](https://github.com/johnsyweb/github-infra). See [ADR 0002](docs/adr/0002-renovate-for-dependency-updates.md). Local within-range bumps: `mise run update-deps`.
 
 ### URL Parameters
 
