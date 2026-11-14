@@ -1,3 +1,6 @@
 [tools]
-aube = "latest"
-node = "latest"
+aube = "2.7.2"
+node = "22.22.2"
+
+[task_config]
+includes = ["./script"]

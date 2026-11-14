@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Audit dependencies for fixable advisories"
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+aube audit --audit-level moderate --ignore-unfixable

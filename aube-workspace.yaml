@@ -1,0 +1,18 @@
+paranoid: true
+packageManagerStrictVersion: true
+# 7 days — aligned with Renovate minimumReleaseAge in johnsyweb/renovate-config
+minimumReleaseAge: 10080
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+overrides:
+  minimatch: ">=11.0.1"
+  glob: ">=14.0.2"
+# Security bumps younger than the cooling window (remove once aged in).
+minimumReleaseAgeExclude:
+  - minimatch
+  - glob
+# playwright resolution can select a chromium-bidi release without trusted-publisher
+# evidence (same fleet exception as tampermonkey-parkrun).
+trustPolicyExclude:
+  - chromium-bidi@157.0.8090-0

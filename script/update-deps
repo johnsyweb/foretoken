@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE description="Show outdated packages; bump within package.json ranges"
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+echo "==> Outdated dependencies"
+aube outdated || true
+
+echo "==> Updating within package.json ranges"
+aube update

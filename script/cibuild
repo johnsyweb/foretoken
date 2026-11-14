@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#MISE description="Run the same checks as CI validation + build"
+set -euo pipefail
+
+root="$(dirname "$0")"
+cd "$root/.."
+
+"$root/ci-install"
+"$root/audit"
+aube run type-check
+aube run lint
+aube run format:check
+aube run test
+aube exec playwright install --with-deps chromium
+aube run build
